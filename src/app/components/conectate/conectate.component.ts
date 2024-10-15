@@ -1,83 +1,86 @@
-import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { config } from '../../../config';
 
-// Declaración de la interfaz de reCAPTCHA
-interface Grecaptcha {
-  render: (container: string, parameters: object) => void;
-}
+// TODO: Declaracion de variable
+declare var grecaptcha: any;
 
+// TODO: Informacion de componente
 @Component({
   selector: 'app-conectate',
   templateUrl: './conectate.component.html',
   styleUrls: ['./conectate.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule]
+  imports: [ReactiveFormsModule, CommonModule],
 })
-export class ConectateComponent implements OnInit, AfterViewInit, AfterViewChecked {
-  showRegister = true; // Controla qué formulario se muestra
-  registerForm: FormGroup; // Formulario de registro
-  loginForm: FormGroup; // Formulario de inicio de sesión
-  passwordStrength = ''; // Variable para la fortaleza de la contraseña
-  recaptchaRendered = false; // Control del estado del reCAPTCHA
+export class ConectateComponent implements OnInit {
+  // TODO: Declaracion de variables
+  registerForm: FormGroup;
+  loginForm: FormGroup;
+
+  recaptchaToken: string | null = null;
+  passwordStrength = ''; 
+
+  showRegister = true;
+  recaptchaRendered = false; 
 
   constructor(private fb: FormBuilder) {
-    // Inicializamos los formularios
-    this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    }, { validators: this.passwordsMatchValidator() });
+    // TODO: Inicializacion de formularios    
+    this.registerForm = this.fb.group(
+      {
+        // TODO: Validacion de entradas
+        username: ['', Validators.required, Validators.minLength(6)],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', Validators.required],
+      },
+      { validators: this.passwordsMatchValidator() }
+    );
 
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      // TODO: Validacion de entradas en login
+      username: ['', [Validators.required]],
+      password: ['', Validators.required],
     });
   }
 
-  // Se ejecuta al inicializar el componente
+  // TODO: Inicializador de componentes
   ngOnInit(): void {
-    // Suscripción a los cambios en el campo de contraseña
-    this.registerForm.get('password')?.valueChanges.subscribe(value => {
+    // TODO: Evaluar la fuersa de la contraseña
+    this.registerForm.get('password')?.valueChanges.subscribe((value) => {
       this.passwordStrength = this.evaluatePasswordStrength(value || '');
-      console.log('Fortaleza de la contraseña:', this.passwordStrength); // Verificar en consola
     });
+
+    //TODO: Recargar captcha
+    this.loadRecaptcha();
   }
 
-  // Se ejecuta después de que la vista ha sido inicializada
-  ngAfterViewInit() {
-    this.renderRecaptcha();
+  // TODO: Cargar Captcha
+  private loadRecaptcha(): void {
+    setTimeout(() => {
+      if (typeof grecaptcha !== 'undefined') {
+        grecaptcha.render('recaptcha-container', {
+          sitekey: config.GOOGLE_KEY,
+          callback: (response: string) => this.onCaptchaResolved(response),
+        });
+      }
+    }, 500);
   }
 
-  // Re-renderiza reCAPTCHA si es necesario
-  ngAfterViewChecked() {
-    if (this.showRegister && !this.recaptchaRendered) {
-      this.renderRecaptcha();
+  // TODO: Token de Captcha
+  private onCaptchaResolved(token: string): void { this.recaptchaToken = token; }
+
+  // TODO: Cambio de formulario
+  changeForm(state: boolean): void {
+    console.log(`Estado recibido: ${state}`);
+    if (state) {
+      this.showRegister = true;
+      console.log("Cambio a registro");
+    } else {
+      this.showRegister = false
+      console.log("Cambio a login");
     }
-  }
-
-  // Renderiza el reCAPTCHA
-  renderRecaptcha() {
-    const grecaptcha: Grecaptcha | undefined = (window as any)['grecaptcha'];
-    if (grecaptcha) {
-      grecaptcha.render('recaptcha-container', {
-        sitekey: '6LcEH18qAAAAAIORRKnwSzz3FxwVcmVR48Tfj7cX',
-        callback: (response: string) => this.resolved(response)
-      });
-      this.recaptchaRendered = true;
-    }
-  }
-
-  // Cambia al formulario de registro
-  showRegisterForm() {
-    this.showRegister = true;
-    this.recaptchaRendered = false;
-  }
-
-  // Cambia al formulario de inicio de sesión
-  showLoginForm() {
-    this.showRegister = false;
   }
 
   // Maneja el envío del formulario de registro
@@ -94,16 +97,8 @@ export class ConectateComponent implements OnInit, AfterViewInit, AfterViewCheck
     }
   }
 
-  // Callback del reCAPTCHA
-  resolved(token: string | null) {
-    if (token) {
-      console.log('Token reCAPTCHA:', token);
-    } else {
-      console.error('No se obtuvo token del reCAPTCHA.');
-    }
-  }
 
-  // Valida que las contraseñas coincidan
+  //TODO: Valida que las contraseñas coincidan
   private passwordsMatchValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const password = control.get('password')?.value;
@@ -124,7 +119,6 @@ export class ConectateComponent implements OnInit, AfterViewInit, AfterViewCheck
         return ''; // Sin ícono si no hay evaluación
     }
   }
-  
 
   // Evalúa la fortaleza de la contraseña ingresada
   private evaluatePasswordStrength(password: string): string {
