@@ -1,0 +1,66 @@
+<!-- Navbar -->
+<header class="sticky top-0 bg-white shadow z-10">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <div class="text-2xl font-bold" routerLink="/">
+        <img src="./logo.png" width="100" alt="Logo" />
+      </div>
+  
+      <!-- Ícono del menú hamburguesa -->
+      <button
+        class="block md:hidden text-2xl focus:outline-none"
+        (click)="toggleMenu()"
+        type="button"
+      >
+        <span class="icon-[mdi--menu] w-8 h-8" style="color: black;"></span>
+      </button>
+  
+      <!-- Navegación para pantallas grandes -->
+      <nav class="hidden md:flex space-x-10 text-lg font-montserrat font-medium">        
+            <a href="#" class="hover:text-cerise flex flex-row items-center">
+                <span class="icon-[material-symbols--star] w-10 h-10" style="color: black;"></span>
+                Nuevo Hoy
+            </a>
+        <a href="#" class="hover:text-cerise flex flex-row items-center">
+            <span class="icon-[map--clothing-store] w-10 h-10" style="color: black;"></span>
+            Ropa
+        </a>
+        <a href="#" class="hover:text-cerise flex flex-row items-center">
+            <span class="icon-[mingcute--shoe-fill] w-10 h-10" style="color: black;"></span>
+            Calzado
+        </a>
+        <a href="#" class="hover:text-cerise flex flex-row items-center">
+            <span class="icon-[material-symbols--health-and-beauty-outline] w-10 h-10" style="color: black;"></span>
+            Belleza
+        </a>
+      </nav>
+  
+      <!-- Controles de búsqueda y carrito -->
+      <div class="flex items-center space-x-4">
+        <button class="hover:text-indigo-500" routerLink="/conectate">
+          <span
+            class="icon-[mdi--account] w-10 h-10 hover:bg-cerise duration-300"
+            style="color: black;"
+          ></span>
+        </button>
+        <button class="hover:text-indigo-500">
+          <span
+            class="icon-[mdi--shopping] w-10 h-10 hover:bg-cerise duration-300"
+            style="color: black;"
+          ></span>
+        </button>
+      </div>
+    </div>
+  
+    <!-- Menú colapsable para pantallas pequeñas -->
+    <div
+      [ngClass]="{ 'hidden': !isMenuOpen }"
+      class="md:hidden flex-col space-y-2 px-4 py-2 bg-white shadow"
+    >
+      <a href="#" class="block hover:text-indigo-500">Nuevo Hoy</a>
+      <a href="#" class="block hover:text-indigo-500">Ropa</a>
+      <a href="#" class="block hover:text-indigo-500">Calzado</a>
+      <a href="#" class="block hover:text-indigo-500">Belleza</a>
+    </div>
+  </header>
+  
