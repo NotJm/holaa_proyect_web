@@ -1,66 +1,72 @@
 <!-- Navbar -->
-<header class="sticky top-0 bg-white shadow z-10">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <!-- Logo -->
-      <div class="text-2xl font-bold" routerLink="/">
-        <img src="./logo.png" width="100" alt="Logo" />
-      </div>
-  
-      <!-- Ícono del menú hamburguesa -->
-      <button
-        class="block md:hidden text-2xl focus:outline-none"
-        (click)="toggleMenu()"
-        type="button"
-      >
-        <span class="icon-[mdi--menu] w-8 h-8" style="color: black;"></span>
-      </button>
-  
-      <!-- Navegación para pantallas grandes -->
-      <nav class="hidden md:flex space-x-10 text-lg font-montserrat font-medium">        
+<header class="sticky top-0 bg-white shadow z-20">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between relative">
+        <!-- Ícono del menú hamburguesa (solo en pantallas pequeñas) -->
+        <button class="block md:hidden text-2xl focus:outline-none" (click)="toggleMenu()" type="button">
+            <span *ngIf="!isMenuOpen" class="icon-[mdi--menu] w-8 h-8" style="color: black;"></span>
+            <span *ngIf="isMenuOpen" class="icon-[mdi--close] w-8 h-8" style="color: black;"></span>
+        </button>
+
+        <!-- Logo centrado -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:translate-x-0 lg:left-0">
+            <a routerLink="/">
+                <img src="./logo.png" width="100" alt="Logo" />
+            </a>
+        </div>
+
+        <!-- Navegación centrada para pantallas grandes -->
+        <nav class="hidden lg:flex space-x-10 text-lg font-montserrat font-medium mx-auto">
             <a href="#" class="hover:text-cerise flex flex-row items-center">
-                <span class="icon-[material-symbols--star] w-10 h-10" style="color: black;"></span>
+                <span class="icon-[material-symbols--star] w-6 h-6 mr-2" style="color: black;"></span>
                 Nuevo Hoy
             </a>
-        <a href="#" class="hover:text-cerise flex flex-row items-center">
-            <span class="icon-[map--clothing-store] w-10 h-10" style="color: black;"></span>
+            <a href="#" class="hover:text-cerise flex flex-row items-center">
+                <span class="icon-[map--clothing-store] w-6 h-6 mr-2" style="color: black;"></span>
+                Ropa
+            </a>
+            <a href="#" class="hover:text-cerise flex flex-row items-center">
+                <span class="icon-[mingcute--shoe-fill] w-6 h-6 mr-2" style="color: black;"></span>
+                Calzado
+            </a>
+            <a href="#" class="hover:text-cerise flex flex-row items-center">
+                <span class="icon-[material-symbols--health-and-beauty-outline] w-6 h-6 mr-2"
+                    style="color: black;"></span>
+                Belleza
+            </a>
+        </nav>
+
+        <!-- Controles de búsqueda y carrito para pantallas grandes -->
+        <div class="hidden md:flex items-center space-x-4">
+            <button class="hover:text-indigo-500" routerLink="/auth/conectate">
+                <span class="icon-[mdi--account] w-8 h-8 hover:bg-cerise duration-300" style="color: black;"></span>
+            </button>
+            <button class="hover:text-indigo-500">
+                <span class="icon-[mdi--shopping] w-8 h-8 hover:bg-cerise duration-300" style="color: black;"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Menú colapsable para pantallas pequeñas -->
+    <div [ngClass]="{ 'translate-x-[-100%]': !isMenuOpen, 'translate-x-0': isMenuOpen }"
+        class="fixed inset-0 bg-white shadow-md md:hidden flex flex-col space-y-6 px-6 py-8 z-30 transition-transform duration-300">
+        <button (click)="toggleMenu()" class="self-end text-2xl focus:outline-none">
+            <span class="icon-[mdi--close] w-8 h-8" style="color: black;"></span>
+        </button>
+        <a href="#" class="flex items-center hover:text-indigo-500">
+            <span class="icon-[material-symbols--star] w-6 h-6 mr-2" style="color: black;"></span>
+            Nuevo Hoy
+        </a>
+        <a href="#" class="flex items-center hover:text-indigo-500">
+            <span class="icon-[map--clothing-store] w-6 h-6 mr-2" style="color: black;"></span>
             Ropa
         </a>
-        <a href="#" class="hover:text-cerise flex flex-row items-center">
-            <span class="icon-[mingcute--shoe-fill] w-10 h-10" style="color: black;"></span>
+        <a href="#" class="flex items-center hover:text-indigo-500">
+            <span class="icon-[mingcute--shoe-fill] w-6 h-6 mr-2" style="color: black;"></span>
             Calzado
         </a>
-        <a href="#" class="hover:text-cerise flex flex-row items-center">
-            <span class="icon-[material-symbols--health-and-beauty-outline] w-10 h-10" style="color: black;"></span>
+        <a href="#" class="flex items-center hover:text-indigo-500">
+            <span class="icon-[material-symbols--health-and-beauty-outline] w-6 h-6 mr-2" style="color: black;"></span>
             Belleza
         </a>
-      </nav>
-  
-      <!-- Controles de búsqueda y carrito -->
-      <div class="flex items-center space-x-4">
-        <button class="hover:text-indigo-500" routerLink="/conectate">
-          <span
-            class="icon-[mdi--account] w-10 h-10 hover:bg-cerise duration-300"
-            style="color: black;"
-          ></span>
-        </button>
-        <button class="hover:text-indigo-500">
-          <span
-            class="icon-[mdi--shopping] w-10 h-10 hover:bg-cerise duration-300"
-            style="color: black;"
-          ></span>
-        </button>
-      </div>
     </div>
-  
-    <!-- Menú colapsable para pantallas pequeñas -->
-    <div
-      [ngClass]="{ 'hidden': !isMenuOpen }"
-      class="md:hidden flex-col space-y-2 px-4 py-2 bg-white shadow"
-    >
-      <a href="#" class="block hover:text-indigo-500">Nuevo Hoy</a>
-      <a href="#" class="block hover:text-indigo-500">Ropa</a>
-      <a href="#" class="block hover:text-indigo-500">Calzado</a>
-      <a href="#" class="block hover:text-indigo-500">Belleza</a>
-    </div>
-  </header>
-  
+</header>

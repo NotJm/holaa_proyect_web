@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css'] 
 })
 export class NavbarComponent {
-  isMenuOpen = false; // Estado del menú
+  isMenuOpen = false; 
 
   toggleMenu(): void {
-    alert('Click detectado');
-    console.log("Mostrar menu");
-    this.isMenuOpen = !this.isMenuOpen; // Alterna la visibilidad del menú
+    this.isMenuOpen = !this.isMenuOpen; 
   }
 }

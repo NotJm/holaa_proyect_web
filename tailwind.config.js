@@ -17,9 +17,32 @@ module.exports = {
       textColor : {
         cerise: "#E91E63",
       },
+      ringColor: {
+        cerise: "#E91E63",
+      },
+      borderColor: {
+        cerise: "#E91E63",
+      },
       fill: {
         platinum: "#E0E0E0",
         cerise: "#E91E63",
+      },
+      colors: {
+        cerise: "#E91E63", 
+      },
+      keyframes: {
+        slideIn: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slideOut: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
+      animation: {
+        'slide-in': 'slideIn 0.3s ease-out forwards',
+        'slide-out': 'slideOut 0.3s ease-out forwards',
       },
     },
   },

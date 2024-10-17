@@ -7,6 +7,6 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 // TODO: Modificacion de rutas
 export const routes: Routes = [
   { path: '', component: HomeComponent },  
-  { path: 'conectate', component: ConectateComponent }, 
+  { path: 'auth/conectate', component: ConectateComponent }, 
   { path: '**', component: PagenotfoundComponent}
 ];

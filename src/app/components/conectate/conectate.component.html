@@ -4,43 +4,69 @@
     <!-- Sección Izquierda: Formularios -->
     <div class="w-full md:w-1/2 p-6 md:p-12">
       <nav class="flex justify-around text-lg font-semibold mb-8 text-gray-800">
-        <button (click)="changeForm(true)" class="hover:underline">Regístrate</button>
-        <button (click)="changeForm(false)" class="hover:underline">Iniciar sesión</button>
+        <button (click)="showRegister = true" class="hover:underline flex flex-col items-center">
+          <span class="icon-[mdi--account] w-10 h-10" style="color: black;"></span>
+          Regístrate
+        </button>
+        <button (click)="showRegister = false" class="hover:underline flex flex-col items-center">
+          <span class="icon-[material-symbols--login] w-10 h-10" style="color: black;"></span>
+          Iniciar sesión
+        </button>
       </nav>
 
       <div class="text-center">
         <ng-container *ngIf="showRegister; else loginTemplate">
-          <h1 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">Únete a Nosotros</h1>
+          <h1 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900 font-montserrat">Únete a Nosotros</h1>
           <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" class="space-y-4 w-full max-w-sm mx-auto">
-            <input type="text" formControlName="username" placeholder="Username"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm" />
+            <div class="relative w-full">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <span class="icon-[mdi--account] w-6 h-6 text-gray-400"></span>
+              </span>
+              <input type="text" formControlName="username" placeholder="Username"
+                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cerise focus:border-cerise" />
+            </div>
 
-            <input type="email" formControlName="email" placeholder="Correo Electrónico"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm" />
+            <div class="relative w-full">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <span class="icon-[ic--baseline-email] w-6 h-6 text-gray-400"></span>
+              </span>
+              <input type="email" formControlName="email" placeholder="Correo Electrónico"
+                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cerise focus:border-cerise" />
+            </div>
 
-            <div class="relative">
-              <input type="password" formControlName="password" placeholder="Contraseña"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm" />
-              <span class="absolute inset-y-0 right-4 flex items-center">
-                <i [ngClass]="getPasswordIcon()"></i>
+            <div class="relative w-full">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <span class="icon-[mdi--password] w-6 h-6 text-gray-400"></span>
+              </span>
+              <input 
+                type="password"
+                formControlName="password" 
+                placeholder="Contraseña"  
+                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cerise focus:border-cerise" />
+              <span class="absolute inset-y-0 right-4 flex items-center cursor-pointer">
+                <i [ngClass]="getPasswordIcon()" class="w-5 h-5 text-gray-500"></i>
               </span>
             </div>
 
-            <input type="password" formControlName="confirmPassword" placeholder="Confirmar Contraseña"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm" />
-
-            <div *ngIf="registerForm.errors?.['passwordsMismatch'] && registerForm.touched"
-              class="text-red-500 text-sm">
-              Las contraseñas no coinciden.
+            <ng-template #passwordTooltip>
+              
+            </ng-template>
+            
+            <div class="relative w-full">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <span class="icon-[mdi--password] w-6 h-6 text-gray-400"></span>
+              </span>
+              <input type="password" formControlName="confirmPassword" placeholder="Confirmar Contraseña"
+              class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cerise focus:border-cerise" />
             </div>
-
+            
             <div class="flex items-center justify-center">
               <div class="g-recaptcha" id="recaptcha-container" data-sitekey="6LdUFV8qAAAAACkMDvyHFVmW9W5EVjMBov_LGyMQ"
                 data-callback="onCaptchaResolved"></div>
             </div>
 
 
-            <button type="submit" class="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 mt-4">
+            <button type="submit" class="font-montserrat w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 mt-4">
               Registrarse
             </button>
           </form>
@@ -49,7 +75,7 @@
         <ng-template #loginTemplate>
           <h1 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">Bienvenido de Nuevo</h1>
           <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" class="space-y-4 w-full max-w-sm mx-auto">
-            <input type="email" formControlName="email" placeholder="Correo Electrónico"
+            <input type="text" formControlName="username" placeholder="Username"
               class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm" />
             <input type="password" formControlName="password" placeholder="Contraseña"
               class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm" />

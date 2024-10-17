@@ -1,9 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { config } from '../../../config';
+import { AuthService } from '../../services/auth/auth.service';
+import { Notyf } from 'notyf';
+import { WebsocketService } from '../../services/websocket/websocket.service';
+import { CaptchaService } from '../../services/captcha/captcha.service';
+import { passwordsMatchValidator } from '../../validators/password.matchs.validator';
 
-// TODO: Declaracion de variable
+// Variables globales
 declare var grecaptcha: any;
 
 // TODO: Informacion de componente
@@ -13,100 +25,147 @@ declare var grecaptcha: any;
   styleUrls: ['./conectate.component.css'],
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
+  providers: [AuthService, WebsocketService, CaptchaService],
 })
-export class ConectateComponent implements OnInit {
-  // TODO: Declaracion de variables
-  registerForm: FormGroup;
+export class ConectateComponent implements OnInit, OnDestroy {
+  // Declaracion de variables
+  private notyf!: Notyf;
+
+    registerForm: FormGroup;
   loginForm: FormGroup;
 
-  recaptchaToken: string | null = null;
-  passwordStrength = ''; 
+  passwordStrength: string = "";
 
-  showRegister = true;
-  recaptchaRendered = false; 
+  showRegister: boolean = true;
 
-  constructor(private fb: FormBuilder) {
-    // TODO: Inicializacion de formularios    
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private webSocketService: WebsocketService,
+    private captchaService: CaptchaService,
+  ) {
+    // Inicializacion de formularios
+
+    // Validacion de entradas de registro
     this.registerForm = this.fb.group(
       {
-        // TODO: Validacion de entradas
-        username: ['', Validators.required, Validators.minLength(6)],
+        username: ['', [Validators.required, Validators.minLength(6)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(8)]],
-        confirmPassword: ['', Validators.required],
+        confirmPassword: ['', [Validators.required]],
       },
-      { validators: this.passwordsMatchValidator() }
+      { validators: passwordsMatchValidator() }
     );
 
+    // Validacion de entradas de login
     this.loginForm = this.fb.group({
-      // TODO: Validacion de entradas en login
       username: ['', [Validators.required]],
-      password: ['', Validators.required],
-    });
-  }
-
-  // TODO: Inicializador de componentes
-  ngOnInit(): void {
-    // TODO: Evaluar la fuersa de la contraseña
-    this.registerForm.get('password')?.valueChanges.subscribe((value) => {
-      this.passwordStrength = this.evaluatePasswordStrength(value || '');
+      password: ['', [Validators.required]],
     });
 
-    //TODO: Recargar captcha
-    this.loadRecaptcha();
-  }
-
-  // TODO: Cargar Captcha
-  private loadRecaptcha(): void {
-    setTimeout(() => {
-      if (typeof grecaptcha !== 'undefined') {
-        grecaptcha.render('recaptcha-container', {
-          sitekey: config.GOOGLE_KEY,
-          callback: (response: string) => this.onCaptchaResolved(response),
-        });
-      }
-    }, 500);
-  }
-
-  // TODO: Token de Captcha
-  private onCaptchaResolved(token: string): void { this.recaptchaToken = token; }
-
-  // TODO: Cambio de formulario
-  changeForm(state: boolean): void {
-    console.log(`Estado recibido: ${state}`);
-    if (state) {
-      this.showRegister = true;
-      console.log("Cambio a registro");
-    } else {
-      this.showRegister = false
-      console.log("Cambio a login");
+    // Condicion para reparacion de error NO TOCAR
+    if (typeof document !== 'undefined') {
+      this.notyf = new Notyf();
     }
   }
 
+  // Inicializador de componentes
+  ngOnInit(): void {
+    // Conexion a socket
+    this.webSocketService.connect();
+
+    // Evaluar la fuerza de contraseña
+    this.registerForm.get('password')?.valueChanges.subscribe((password) => {
+      this.passwordStrength = this.evaluatePasswordStrength(password);
+    });
+
+    // Recargar el captcha
+    this.captchaService.renderReCaptcha();
+  }
+
+  ngOnDestroy(): void {
+    this.webSocketService.discconect();
+  }
+
   // Maneja el envío del formulario de registro
-  onRegisterSubmit() {
+  onRegisterSubmit(): void {
     if (this.registerForm.valid) {
-      console.log('Registro exitoso:', this.registerForm.value);
+      const { username, password, email } = this.registerForm.value;
+
+      const userData = {
+        username: username,
+        password: password,
+        email: email,
+      };
+
+      this.authService.register(userData).subscribe({
+        next: (response) => {
+          this.notyf.success({
+            message: `${response.message}`,
+            duration: 5000,
+          });
+
+          this.webSocketService.onEmailVerified().subscribe({
+            next: (response) => {
+
+              if (document.hidden) {
+                window.focus();
+              }
+
+              this.notyf.success({
+                message: response,
+                duration: 5000,
+              });
+
+              console.log(response);
+            },
+            error: (err) => {
+              this.notyf.error({
+                message: `${err.message}`,
+                duration: 5000,
+              });
+            },
+          });
+        },
+        error: (err) => {
+          this.notyf.error({
+            message: `${err.message}`,
+            duration: 5000,
+          });
+        },
+      });
     }
   }
 
   // Maneja el envío del formulario de inicio de sesión
   onLoginSubmit() {
     if (this.loginForm.valid) {
-      console.log('Inicio de sesión exitoso:', this.loginForm.value);
+      const { username, password } = this.loginForm.value;
+
+      const userData = {
+        username: username,
+        password: password
+      }
+
+      this.authService.login(userData).subscribe({
+        next: (response) => {
+          this.notyf.success({
+            message: response.message,
+            duration: 5000,
+          });
+        },
+        error: (err) => {
+          this.notyf.error({
+            message: `${err.message}`,
+            duration: 5000,
+          });
+        }
+      })
     }
   }
 
-
-  //TODO: Valida que las contraseñas coincidan
-  private passwordsMatchValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const password = control.get('password')?.value;
-      const confirmPassword = control.get('confirmPassword')?.value;
-      return password === confirmPassword ? null : { passwordsMismatch: true };
-    };
-  }
-
+  
   getPasswordIcon(): string {
     switch (this.passwordStrength) {
       case 'weak':
@@ -143,4 +202,7 @@ export class ConectateComponent implements OnInit {
         return '';
     }
   }
+
+
+
 }
