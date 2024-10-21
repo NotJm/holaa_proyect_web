@@ -2,13 +2,16 @@ const { addDynamicIconSelectors } = require('@iconify/tailwind');
 // tailwind.config.js
 module.exports = {
   content: [
-    "./src/**/*.{html,ts}"
+    "./src/**/*.{html,ts}",
   ],
   theme: {
     extend: {
+
+
       backgroundColor: {
         platinum: "#E0E0E0",
         cerise: "#E91E63",
+        
       },
       fontFamily: {
         sans: ['Open Sans', 'sans-serif'],
@@ -28,7 +31,19 @@ module.exports = {
         cerise: "#E91E63",
       },
       colors: {
-        cerise: "#E91E63", 
+        cerise: "#E91E63",
+        gold: "#D4AF37",
+        champagne: "#F7E7CE",
+        pearl_gray: "#B0B0B0",
+        blush_pink: "#F2C2D1",
+        burgundy: "#800020",
+        navy_blue: "#2C3E50",
+        soft_mauve: "#D8BFD8",
+        taupe: "#B38B6D",
+        plum: "#8E4585",
+        deepBurgundy: "#660016",
+        strongCerise: "#D00050",
+        darkCerise: "#A01744", 
       },
       keyframes: {
         slideIn: {
@@ -46,8 +61,8 @@ module.exports = {
       },
     },
   },
+
   plugins: [
     addDynamicIconSelectors(),
-    // addIconSelectors(['mdi', 'mdi-light', 'map']),
   ],
 };

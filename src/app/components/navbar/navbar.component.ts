@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ConectateComponent } from '../conectate/conectate.component';
 
 @Component({
   selector: 'app-navbar',
@@ -10,9 +11,15 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./navbar.component.css'] 
 })
 export class NavbarComponent {
-  isMenuOpen = false; 
+  isModalOpen: boolean = false;
+  isMenuOpen: boolean = false; 
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen; 
+  }
+
+
+  toggleRegisterModal(): void {
+
   }
 }

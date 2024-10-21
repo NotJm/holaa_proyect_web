@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private readonly httpClient: HttpClient) {}
 
   login(userData: any): Observable<any> {
-    return this.httpClient.post(`${this.apiRequest}/login`, userData).pipe(
+    return this.httpClient.post(`${this.apiRequest}/auth/login`, userData).pipe(
       catchError(error => {
         return throwError(() => new Error(error.error.message) || 'Excepcion desconocida');
       })
@@ -21,15 +21,19 @@ export class AuthService {
   }
 
   register(userData: any): Observable<any> {
-    return this.httpClient.post(`${this.apiRequest}/register`, userData).pipe(
+    return this.httpClient.post(`${this.apiRequest}/auth/register`, userData).pipe(
       catchError(error => {
         return throwError(() => new Error(error.error.message) || 'Excepcion desconocida');
       })
     );
   }
 
-  verify_email(tokenData: any): Observable<any> {
-    return this.httpClient.post(`${this.apiRequest}/verify_email`, tokenData);
+  verify_otp(optData: any): Observable<any> {
+    return this.httpClient.post(`${this.apiRequest}/auth/verify/otp/code`, optData).pipe(
+      catchError(error => {
+        return throwError(() => new Error(error.error.message) || 'Excepcion desconocida');
+      })
+    );
   }
 
 

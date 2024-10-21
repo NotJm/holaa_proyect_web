@@ -1,0 +1,17 @@
+<div class="flex items-center justify-center min-h-screen bg-platinum">
+    <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="bg-white p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-montserrat font-bold text-center mb-4 text-cerise">Introduce tu código OTP</h2>
+      
+      <div class="flex space-x-3 justify-center">
+        <input type="text" formControlName="otp1" id="otp1" maxlength="1" class="w-12 h-12 text-center text-2xl font-bold bg-platinum border border-cerise focus:ring-cerise focus:border-cerise rounded-lg transition-all duration-200 focus:outline-none" (input)="moveToNextField($event, 'otp2')" />
+        <input type="text" formControlName="otp2" id="otp2" maxlength="1" class="w-12 h-12 text-center text-2xl font-bold bg-platinum border border-cerise focus:ring-cerise focus:border-cerise rounded-lg transition-all duration-200 focus:outline-none" (input)="moveToNextField($event, 'otp3')" />
+        <input type="text" formControlName="otp3" id="otp3" maxlength="1" class="w-12 h-12 text-center text-2xl font-bold bg-platinum border border-cerise focus:ring-cerise focus:border-cerise rounded-lg transition-all duration-200 focus:outline-none" (input)="moveToNextField($event, 'otp4')" />
+        <input type="text" formControlName="otp4" id="otp4" maxlength="1" class="w-12 h-12 text-center text-2xl font-bold bg-platinum border border-cerise focus:ring-cerise focus:border-cerise rounded-lg transition-all duration-200 focus:outline-none" (input)="moveToNextField($event, 'otp5')" />
+        <input type="text" formControlName="otp5" id="otp5" maxlength="1" class="w-12 h-12 text-center text-2xl font-bold bg-platinum border border-cerise focus:ring-cerise focus:border-cerise rounded-lg transition-all duration-200 focus:outline-none" (input)="moveToNextField($event, 'otp6')" />
+        <input type="text" formControlName="otp6" id="otp6" maxlength="1" class="w-12 h-12 text-center text-2xl font-bold bg-platinum border border-cerise focus:ring-cerise focus:border-cerise rounded-lg transition-all duration-200 focus:outline-none" />
+      </div>
+  
+      <button type="submit" class="w-full mt-4 bg-cerise text-white font-bold py-2 rounded-lg hover:bg-pink-600 transition-all duration-300">Verificar</button>
+    </form>
+  </div>
+  

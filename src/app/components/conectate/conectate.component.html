@@ -1,105 +1,220 @@
-<!-- Contenido Principal -->
-<div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-  <div class="flex flex-col md:flex-row w-full max-w-5xl shadow-lg rounded-lg overflow-hidden bg-white">
+<div class="flex p-4">
+  <div class="flex flex-col md:flex-row w-full max-w-5xl shadow-lg rounded-lg overflow-hidden bg-white mx-auto">
     <!-- Sección Izquierda: Formularios -->
-    <div class="w-full md:w-1/2 p-6 md:p-12">
-      <nav class="flex justify-around text-lg font-semibold mb-8 text-gray-800">
-        <button (click)="showRegister = true" class="hover:underline flex flex-col items-center">
-          <span class="icon-[mdi--account] w-10 h-10" style="color: black;"></span>
-          Regístrate
-        </button>
-        <button (click)="showRegister = false" class="hover:underline flex flex-col items-center">
-          <span class="icon-[material-symbols--login] w-10 h-10" style="color: black;"></span>
-          Iniciar sesión
-        </button>
-      </nav>
+    <div class="w-full md:w-1/2 p-6 md:p-12 flex flex-col justify-center">
+      <div class="text-center md:text-left">
+        <h1 class="text-2xl md:text-4xl font-bold mb-6 text-gray-900 font-montserrat text-center">Únete a Nosotros</h1>
+        <!-- Formulario de Registro -->
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4 w-full max-w-sm mx-auto md:mx-0">
+          <!-- Usuario -->
+          <div class="relative w-full">
+            <!-- Control -->
+            <input 
+              type="text" 
+              formControlName="username" 
+              placeholder="Nombre de Usuario" 
+              class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm 
+              focus:outline-none focus:ring-2 focus:ring-black focus:border-black" 
+              [ngClass]="getClassStatusControl('username')" 
+            />
+            
+            <!-- Icono -->
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="icon-[mdi--account] w-6 h-6 text-gray-400"></i>
+            </span>
 
-      <div class="text-center">
-        <ng-container *ngIf="showRegister; else loginTemplate">
-          <h1 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900 font-montserrat">Únete a Nosotros</h1>
-          <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" class="space-y-4 w-full max-w-sm mx-auto">
-            <div class="relative w-full">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                <span class="icon-[mdi--account] w-6 h-6 text-gray-400"></span>
-              </span>
-              <input type="text" formControlName="username" placeholder="Username"
-                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cerise focus:border-cerise" />
-            </div>
+            <!-- Icono erroneo -->
+            <span
+                *ngIf="getStatusControl('username') ; else checkUsername"
+                class="absolute inset-y-0 right-4 flex items-center"
+              >
+                <i class="icon-[material-symbols--error-outline] w-6 h-6 bg-red-500"></i>
+            </span>
 
-            <div class="relative w-full">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                <span class="icon-[ic--baseline-email] w-6 h-6 text-gray-400"></span>
+            <!-- Icono exitoso -->
+            <ng-template #checkUsername>
+              <span *ngIf="registerForm.get('username')?.valid && registerForm.get('username')?.dirty"
+                class="absolute inset-y-0 right-4 flex items-center">
+                <i class="icon-[mdi--check-circle] w-6 h-6 text-green-500"></i>
               </span>
-              <input type="email" formControlName="email" placeholder="Correo Electrónico"
-                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cerise focus:border-cerise" />
-            </div>
-
-            <div class="relative w-full">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                <span class="icon-[mdi--password] w-6 h-6 text-gray-400"></span>
-              </span>
-              <input 
-                type="password"
-                formControlName="password" 
-                placeholder="Contraseña"  
-                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cerise focus:border-cerise" />
-              <span class="absolute inset-y-0 right-4 flex items-center cursor-pointer">
-                <i [ngClass]="getPasswordIcon()" class="w-5 h-5 text-gray-500"></i>
-              </span>
-            </div>
-
-            <ng-template #passwordTooltip>
-              
             </ng-template>
             
-            <div class="relative w-full">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                <span class="icon-[mdi--password] w-6 h-6 text-gray-400"></span>
+          </div>
+
+          <div *ngIf="this.registerForm.get('username')?.untouched">
+            <small 
+              *ngIf="this.registerForm.get('username')?.invalid && 
+              this.registerForm.get('username')?.dirty"
+              class="text-red-600 mt-2 block text-left">
+              Por favor, el nombre de usuario debe contener al menos 6 caracteres
+            </small>
+          </div>
+
+          <!-- Email -->
+          <div class="relative w-full">
+            <!-- Control -->
+            <input 
+            type="email" 
+            formControlName="email" 
+            placeholder="Correo Electrónico" 
+            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm 
+              focus:outline-none focus:ring-2 focus:ring-black focus:border-black" 
+            [ngClass]="getClassStatusControl('email')" 
+            />
+
+            <!-- Icono -->
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="icon-[ic--baseline-email] w-6 h-6 text-gray-400"></i>
+            </span>
+            
+            <!-- Icono erroneo -->
+            <span
+              *ngIf="getStatusControl('email'); else checkEmail"
+              class="absolute inset-y-0 right-4 flex items-center">
+              <i class="icon-[material-symbols--error-outline] w-6 h-6 bg-red-500"></i>
+            </span>
+            
+            <!-- Icono exitoso -->
+            <ng-template #checkEmail>
+              <span *ngIf="registerForm.get('email')?.valid && registerForm.get('email')?.dirty"
+                class="absolute inset-y-0 right-4 flex items-center">
+                <i class="icon-[mdi--check-circle] w-6 h-6 text-green-500"></i>
               </span>
-              <input type="password" formControlName="confirmPassword" placeholder="Confirmar Contraseña"
-              class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cerise focus:border-cerise" />
+            </ng-template>
+
+          </div>
+
+          <!-- Mensaje de error -->
+          <div *ngIf="this.registerForm.get('email')?.untouched">
+            <small 
+                *ngIf="this.registerForm.get('email')?.invalid && 
+                this.registerForm.get('email')?.dirty"
+                class="text-red-600 mt-2 block text-left">
+                Por favor, ingrese un correo electrónico válido
+            </small>
+          </div>
+
+          <!-- Password -->
+          <div class="relative w-full">
+            <!-- Control -->
+            <input 
+              [type]="getPasswordFieldType()" 
+              formControlName="password" 
+              placeholder="Contraseña" 
+              class="w-full pl-10 pr-12 py-2 border border-gray-300 rounded-md shadow-sm 
+              focus:outline-none focus:ring-2 focus:ring-black focus:border-black" 
+              [ngClass]="getPasswordClasses().border"
+              (focus)="showTooltip = true"
+              (blur)="showTooltip = false"
+            />
+
+            <!-- Icono -->
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="icon-[mdi--password] w-6 h-6 text-gray-400"></i>
+            </span>
+
+            <!-- Icono de fortaleza de contraseña -->
+            <span class="absolute inset-y-0 right-10 flex items-center">
+              <i [ngClass]="getPasswordClasses().icon" class="w-5 h-5 text-gray-500"></i>
+            </span>
+
+            <!-- Icono de mostrar/ocultar contraseña -->
+            <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer" (click)="togglePasswordVisible()">
+              <i [ngClass]="getPasswordIconEye()" class="w-5 h-5 text-gray-500"></i>
+            </span>
+
+            <!-- Tooltip oara mostrar fottaleza de contraseña -->
+            <div *ngIf="showTooltip" class="absolute mt-2 w-64 p-2 text-sm bg-white shadow-lg rounded-lg z-10 left-0">
+              <p class="text-gray-900 font-semibold">La contraseña debe incluir:</p>
+              <ul class="mt-1">
+                <!-- Longitud de la contraseña -->
+                <li [ngClass]="{'text-green-600': isValidLength(), 'text-red-600': !isValidLength()}" class="flex items-center">
+                  <i [ngClass]="{'icon-[mdi--check]': isValidLength(), 'icon-[mdi--close]': !isValidLength()}" class="w-4 h-4 mr-2"></i>
+                  Al menos 8 a 20 caracteres
+                </li>
+                <!-- Letra mayúscula -->
+                <li [ngClass]="{'text-green-600': hasCapitalLetter(), 'text-red-600': !hasCapitalLetter()}" class="flex items-center">
+                  <i [ngClass]="{'icon-[mdi--check]': hasCapitalLetter(), 'icon-[mdi--close]': !hasCapitalLetter()}" class="w-4 h-4 mr-2"></i>
+                  Al menos un letra en mayuscula
+                </li>
+                <!-- Número -->
+                <li [ngClass]="{'text-green-600': hasNumber(), 'text-red-600': !hasNumber()}" class="flex items-center">
+                  <i [ngClass]="{'icon-[mdi--check]': hasNumber(), 'icon-[mdi--close]': !hasNumber()}" class="w-4 h-4 mr-2"></i>
+                  Al menos un numero
+                </li>
+                <li [ngClass]="{'text-green-600': hasSpecialCharacter(), 'text-red-600': !hasSpecialCharacter()}" class="flex items-center">
+                  <i [ngClass]="{'icon-[mdi--check]': hasSpecialCharacter(), 'icon-[mdi--close]': !hasSpecialCharacter()}" class="w-4 h-4 mr-2"></i>
+                  Al menos un caracter especial ($!%*?&)
+                </li>
+                <!-- Sin espacios -->
+                <li [ngClass]="{'text-green-600': hasNoSpaces(), 'text-red-600': !hasNoSpaces()}" class="flex items-center">
+                  <i [ngClass]="{'icon-[mdi--check]': hasNoSpaces(), 'icon-[mdi--close]': !hasNoSpaces()}" class="w-4 h-4 mr-2"></i>
+                  No espacios
+                </li>
+              </ul>
             </div>
             
-            <div class="flex items-center justify-center">
-              <div class="g-recaptcha" id="recaptcha-container" data-sitekey="6LdUFV8qAAAAACkMDvyHFVmW9W5EVjMBov_LGyMQ"
-                data-callback="onCaptchaResolved"></div>
-            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="relative w-full">
+            <!-- Control -->
+            <input 
+              type="password" 
+              formControlName="confirmPassword" 
+              placeholder="Confirmar Contraseña" 
+              class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm 
+              focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
+            />
+
+            <!-- Icono de contraseña -->
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="icon-[mdi--password] w-6 h-6 text-gray-400"></i>
+            </span>
+
+            <!-- Icono erroneo -->
+            <span
+              *ngIf="!passwordsMatch() ; else checkPassword"
+              class="absolute inset-y-0 right-4 flex items-center">
+              <i class="icon-[material-symbols--error-outline] w-6 h-6 bg-red-500"></i>
+            </span>
+            
+            <!-- Icono exitoso -->
+            <ng-template #checkPassword>
+              <span *ngIf="registerForm.get('confirmPassword')?.valid && registerForm.get('confirmPassword')?.dirty"
+                class="absolute inset-y-0 right-4 flex items-center">
+                <i class="icon-[mdi--check-circle] w-6 h-6 text-green-500"></i>
+              </span>
+            </ng-template>
+
+          </div>
+          <div *ngIf="this.registerForm.get('confirmPassword')?.untouched">
+            <small *ngIf="!passwordsMatch()"
+              class="text-red-600 mt-2 block text-left">
+                Las contraseñas no coinciden
+            </small>
+          </div>
 
 
-            <button type="submit" class="font-montserrat w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 mt-4">
-              Registrarse
-            </button>
-          </form>
-        </ng-container>
+          <!-- Captcha y Botón -->
+          <div class="flex items-center justify-center mt-6">
+            <div class="g-recaptcha" id="recaptcha-container" data-sitekey="6LdUFV8qAAAAACkMDvyHFVmW9W5EVjMBov_LGyMQ"
+              data-callback="onCaptchaResolved"></div>
+          </div>
 
-        <ng-template #loginTemplate>
-          <h1 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">Bienvenido de Nuevo</h1>
-          <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" class="space-y-4 w-full max-w-sm mx-auto">
-            <input type="text" formControlName="username" placeholder="Username"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm" />
-            <input type="password" formControlName="password" placeholder="Contraseña"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm" />
-
-            <button type="submit" class="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800">
-              Iniciar sesión
-            </button>
-
-            <div class="mt-8 flex justify-center space-x-4">
-              <a href="#" class="social-btn">
-                <img src="facebook.ico" alt="Facebook" class="h-8 w-8" />
-              </a>
-              <a href="#" class="social-btn">
-                <img src="whatsapp.ico" alt="WhatsApp" class="h-8 w-8" />
-              </a>
-            </div>
-          </form>
-        </ng-template>
+          <button 
+            type="submit"
+            class="font-montserrat w-full bg-black text-white py-2 rounded-md 
+            hover:bg-gray-800 mt-4">
+            Registrarse
+          </button>
+        </form>
       </div>
     </div>
 
     <!-- Sección Derecha: Imagen Lateral -->
     <div class="w-full md:w-1/2 relative hidden md:block">
-      <img src="/Hola_prueba.jpg" alt="Imagen Lateral" class="object-cover h-full w-full">
+      <img src="/Hola_prueba.jpg" alt="Imagen Lateral" class="h-full w-full object-cover">
       <div class="absolute inset-0 bg-black opacity-30"></div>
     </div>
   </div>

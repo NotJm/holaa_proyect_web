@@ -1,72 +1,91 @@
 <!-- Navbar -->
-<header class="sticky top-0 bg-white shadow z-20">
-    <div class="container mx-auto px-4 py-4 flex items-center justify-between relative">
-        <!-- Ícono del menú hamburguesa (solo en pantallas pequeñas) -->
-        <button class="block md:hidden text-2xl focus:outline-none" (click)="toggleMenu()" type="button">
-            <span *ngIf="!isMenuOpen" class="icon-[mdi--menu] w-8 h-8" style="color: black;"></span>
-            <span *ngIf="isMenuOpen" class="icon-[mdi--close] w-8 h-8" style="color: black;"></span>
-        </button>
+<header class="sticky top-0 z-10 bg-white flex flex-col pb-4 shadow shadow-black">
+    <!-- Primera fila (Iniciar sesión / Registrarse) -->
+    <div class="px-3 py-3 flex items-end justify-end">
+        <div>
+            <ul class="flex items-center space-x-5 list-none">
+                <li>
+                    <a routerLink="/auth/login" class="font-montserrat font-bold text-lg text-plum relative group">
+                        <span>Iniciar Sesión</span>
+                        <span class="block h-0.5 bg-plum transition-all duration-300 
+                        ease-in-out scale-x-0 group-hover:scale-x-100"></span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/auth/signin"
+                        class="font-montserrat font-semibold text-lg text-deepBurgundy relative group">
+                        <span>Registrarse</span>
+                        <span class="block h-0.5 bg-deepBurgundy transition-all duration-300 
+                        ease-in-out scale-x-0 group-hover:scale-x-100"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
+    <!-- Segunda fila (Logo centrado, barra de busqueda y barra de navegación) -->
+    <div class="flex items-center justify-between px-4">
         <!-- Logo centrado -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:translate-x-0 lg:left-0">
-            <a routerLink="/">
-                <img src="./logo.png" width="100" alt="Logo" />
+        <div class="flex">
+            <a routerLink="/" class="cursor-pointer">
+                <img src="./logo.png" width="200" alt="Logo" />
             </a>
         </div>
 
-        <!-- Navegación centrada para pantallas grandes -->
-        <nav class="hidden lg:flex space-x-10 text-lg font-montserrat font-medium mx-auto">
-            <a href="#" class="hover:text-cerise flex flex-row items-center">
-                <span class="icon-[material-symbols--star] w-6 h-6 mr-2" style="color: black;"></span>
-                Nuevo Hoy
-            </a>
-            <a href="#" class="hover:text-cerise flex flex-row items-center">
-                <span class="icon-[map--clothing-store] w-6 h-6 mr-2" style="color: black;"></span>
-                Ropa
-            </a>
-            <a href="#" class="hover:text-cerise flex flex-row items-center">
-                <span class="icon-[mingcute--shoe-fill] w-6 h-6 mr-2" style="color: black;"></span>
-                Calzado
-            </a>
-            <a href="#" class="hover:text-cerise flex flex-row items-center">
-                <span class="icon-[material-symbols--health-and-beauty-outline] w-6 h-6 mr-2"
-                    style="color: black;"></span>
-                Belleza
-            </a>
-        </nav>
+        <div class="w-full flex-grow mx-4 max-w-xl">
 
-        <!-- Controles de búsqueda y carrito para pantallas grandes -->
-        <div class="hidden md:flex items-center space-x-4">
-            <button class="hover:text-indigo-500" routerLink="/auth/conectate">
-                <span class="icon-[mdi--account] w-8 h-8 hover:bg-cerise duration-300" style="color: black;"></span>
-            </button>
-            <button class="hover:text-indigo-500">
-                <span class="icon-[mdi--shopping] w-8 h-8 hover:bg-cerise duration-300" style="color: black;"></span>
-            </button>
+        </div>
+
+
+        <!-- Navegación derecha (Búsqueda, Favoritos, Carrito) -->
+        <div class="flex items-center space-x-5">
+            <form class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <span class="icon-[material-symbols--search] w-6 h-6"></span>
+                </span>
+                <input type="text" placeholder="Búsqueda" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm font-montserrat 
+                    focus:outline-none focus:ring-1 hover:border-gray-400 focus:ring-gray-500 focus:border-gray-500" />
+            </form>
+            <a href="#" aria-label="Favoritos">
+                <i class="icon-[material-symbols--favorite] w-8 h-8"></i>
+            </a>
+            <a href="#" aria-label="Carrito de compras">
+                <i class="icon-[mdi--shopping] w-8 h-8 "></i>
+            </a>
         </div>
     </div>
 
-    <!-- Menú colapsable para pantallas pequeñas -->
-    <div [ngClass]="{ 'translate-x-[-100%]': !isMenuOpen, 'translate-x-0': isMenuOpen }"
-        class="fixed inset-0 bg-white shadow-md md:hidden flex flex-col space-y-6 px-6 py-8 z-30 transition-transform duration-300">
-        <button (click)="toggleMenu()" class="self-end text-2xl focus:outline-none">
-            <span class="icon-[mdi--close] w-8 h-8" style="color: black;"></span>
-        </button>
-        <a href="#" class="flex items-center hover:text-indigo-500">
-            <span class="icon-[material-symbols--star] w-6 h-6 mr-2" style="color: black;"></span>
-            Nuevo Hoy
+    <!-- Tercer fila  (Categorias de ropa)
+    <div class="flex items-center justify-center space-x-7">
+        <a href="#" class="font-montserrat font-semibold relative group">
+            <span class="tracking-wider text-strongCerise">Blusas</span>
+            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
+            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
         </a>
-        <a href="#" class="flex items-center hover:text-indigo-500">
-            <span class="icon-[map--clothing-store] w-6 h-6 mr-2" style="color: black;"></span>
-            Ropa
+        <a href="#" class="font-montserrat font-semibold relative group">
+            <span class="tracking-wider text-strongCerise">Vestidos</span>
+            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
+            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
         </a>
-        <a href="#" class="flex items-center hover:text-indigo-500">
-            <span class="icon-[mingcute--shoe-fill] w-6 h-6 mr-2" style="color: black;"></span>
-            Calzado
+        <a href="#" class="font-montserrat font-semibold relative group">
+            <span class="tracking-wider text-strongCerise">Pantalones</span>
+            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
+            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
         </a>
-        <a href="#" class="flex items-center hover:text-indigo-500">
-            <span class="icon-[material-symbols--health-and-beauty-outline] w-6 h-6 mr-2" style="color: black;"></span>
-            Belleza
+        <a href="#" class="font-montserrat font-semibold relative group">
+            <span class="tracking-wider text-strongCerise">Camisetas</span>
+            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
+            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
         </a>
-    </div>
+        <a href="#" class="font-montserrat font-semibold relative group">
+            <span class="tracking-wider text-strongCerise">Calzado</span>
+            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
+            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
+        </a>
+        <a href="#" class="font-montserrat font-semibold relative group">
+            <span class="tracking-wider text-strongCerise">Accesorios</span>
+            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
+            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
+        </a>
+    </div> -->
 </header>

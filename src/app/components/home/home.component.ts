@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';  // Importa RouterModule
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { LoadingComponent } from '../loading/loading.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  standalone: true,  // Componente standalone
-  imports: [RouterModule],  // Importa RouterModule aquí
+  standalone: true,  
+  imports: [RouterModule, LoadingComponent, CommonModule], 
 })
 export class HomeComponent {}

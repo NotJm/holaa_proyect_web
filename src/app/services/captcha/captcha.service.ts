@@ -7,11 +7,6 @@ declare var grecaptcha: any;
 })
 export class CaptchaService {
 
-  
-
-  recaptchaToken: string = "";
-
-  
 
   constructor() { }
 
@@ -21,11 +16,7 @@ export class CaptchaService {
         grecaptcha.render(
           'recaptcha-container',
           {
-            siteKey: '6LcEH18qAAAAAIORRKnwSzz3FxwVcmVR48Tfj7cX',
-            callback: (response: string) => {
-              this.onCaptchaResolved(response);
-            },
-            
+            siteKey: '6LcEH18qAAAAAIORRKnwSzz3FxwVcmVR48Tfj7cX'
           }
         )
       } else {
@@ -36,9 +27,5 @@ export class CaptchaService {
     }
   }
 
-  private onCaptchaResolved(token: string): void { 
-    this.recaptchaToken = token;
-    console.log('Produccion:', token);
-  }
 
 }
