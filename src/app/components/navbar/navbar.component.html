@@ -1,91 +1,117 @@
-<!-- Navbar -->
-<header class="sticky top-0 z-10 bg-white flex flex-col pb-4 shadow shadow-black">
-    <!-- Primera fila (Iniciar sesión / Registrarse) -->
-    <div class="px-3 py-3 flex items-end justify-end">
-        <div>
-            <ul class="flex items-center space-x-5 list-none">
-                <li>
-                    <a routerLink="/auth/login" class="font-montserrat font-bold text-lg text-plum relative group">
-                        <span>Iniciar Sesión</span>
-                        <span class="block h-0.5 bg-plum transition-all duration-300 
-                        ease-in-out scale-x-0 group-hover:scale-x-100"></span>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="/auth/signin"
-                        class="font-montserrat font-semibold text-lg text-deepBurgundy relative group">
-                        <span>Registrarse</span>
-                        <span class="block h-0.5 bg-deepBurgundy transition-all duration-300 
-                        ease-in-out scale-x-0 group-hover:scale-x-100"></span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+   <!-- Navbar -->
+   <header class="sticky top-0 bg-white shadow z-20 border-b border-gray-300"> 
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <!-- Secciones de la empresa (a la izquierda) -->
+        <nav class="flex space-x-6 text-sm font-montserrat font-medium">
+            <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Nosotros</a>
+            <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Misión</a>
+            <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Visión</a>
+            <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Únete</a>
+        </nav>
 
-    <!-- Segunda fila (Logo centrado, barra de busqueda y barra de navegación) -->
-    <div class="flex items-center justify-between px-4">
         <!-- Logo centrado -->
-        <div class="flex">
-            <a routerLink="/" class="cursor-pointer">
-                <img src="./logo.webp" width="200" alt="Logo" />
+        <div class="absolute left-1/2 transform -translate-x-1/2">
+            <a href="/">
+                <img src="./logo.webp" width="100" alt="Logo" />
             </a>
         </div>
 
-        <div class="w-full flex-grow mx-4 max-w-xl">
-
-        </div>
-
-
-        <!-- Navegación derecha (Búsqueda, Favoritos, Carrito) -->
-        <div class="flex items-center space-x-5">
+        <!-- Controles de búsqueda, registro, inicio de sesión y carrito (a la derecha) -->
+        <div class="flex items-center space-x-4 ml-auto"> 
+            <!-- Buscador -->
             <form class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <span class="icon-[material-symbols--search] w-6 h-6"></span>
-                </span>
-                <input type="text" placeholder="Búsqueda" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm font-montserrat 
-                    focus:outline-none focus:ring-1 hover:border-gray-400 focus:ring-gray-500 focus:border-gray-500" />
+                <input type="text" placeholder="Buscar" class="border border-gray-300 rounded-full px-4 py-1 focus:outline-none focus:ring focus:border-cerise">
+                <button type="submit" class="absolute right-0 top-0 mt-1 mr-2">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"></path>
+                    </svg>
+                </button>
             </form>
-            <a href="#" aria-label="Favoritos">
-                <i class="icon-[material-symbols--favorite] w-8 h-8"></i>
-            </a>
-            <a href="#" aria-label="Carrito de compras">
-                <i class="icon-[mdi--shopping] w-8 h-8 "></i>
-            </a>
+
+            <!-- Botón de registro -->
+            <div class="flex space-x-8"> <!-- Aumenta el espacio horizontal -->
+                <a href="/auth/signin" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Registrarse</a>
+                <!-- Botón de inicio de sesión -->
+                <a href="/auth/login" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Iniciar sesión</a>
+            </div>
+            
+            <!-- Ícono de la bolsa/carrito -->
+            <button class="hover:text-indigo-500 transform transition-transform duration-200 hover:scale-105">
+                <span class="icon-[mdi--shopping] w-8 h-8" style="color: black;"></span>
+            </button>
         </div>
     </div>
 
-    <!-- Tercer fila  (Categorias de ropa)
-    <div class="flex items-center justify-center space-x-7">
-        <a href="#" class="font-montserrat font-semibold relative group">
-            <span class="tracking-wider text-strongCerise">Blusas</span>
-            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
-            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
-        </a>
-        <a href="#" class="font-montserrat font-semibold relative group">
-            <span class="tracking-wider text-strongCerise">Vestidos</span>
-            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
-            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
-        </a>
-        <a href="#" class="font-montserrat font-semibold relative group">
-            <span class="tracking-wider text-strongCerise">Pantalones</span>
-            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
-            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
-        </a>
-        <a href="#" class="font-montserrat font-semibold relative group">
-            <span class="tracking-wider text-strongCerise">Camisetas</span>
-            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
-            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
-        </a>
-        <a href="#" class="font-montserrat font-semibold relative group">
-            <span class="tracking-wider text-strongCerise">Calzado</span>
-            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
-            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
-        </a>
-        <a href="#" class="font-montserrat font-semibold relative group">
-            <span class="tracking-wider text-strongCerise">Accesorios</span>
-            <span class="block h-0.5 bg-strongCerise transition-all duration-300 
-            ease-in-out scale-x-0 group-hover:scale-x-100"></span>
-        </a>
-    </div> -->
+    <!-- Navegación principal con submenús -->
+    <nav class="flex space-x-10 text-lg font-montserrat font-medium justify-center mt-4">
+        <!-- Ropa -->
+        <div class="group relative">
+            <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-105">Ropa</a>
+            <!-- Submenú de Ropa -->
+            <div class="absolute left-0 top-full hidden group-hover:flex bg-black text-white py-4 px-6 shadow-lg w-[600px]">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="font-bold mb-2">Ropa</h3>
+                        <a href="#" class="block hover:underline">Abrigos</a>
+                        <a href="#" class="block hover:underline">Camisetas</a>
+                        <a href="#" class="block hover:underline">Chaquetas</a>
+                        <a href="#" class="block hover:underline">Vestidos cortos</a>
+                        <a href="#" class="block hover:underline">Ropa deportiva</a>
+                        <a href="#" class="block hover:underline">Pantalones</a>
+                        <a href="#" class="block hover:underline">Sudaderas</a>
+                    </div>
+                    <div>
+                        <a href="#" class="block hover:underline">Faldas</a>
+                        <a href="#" class="block hover:underline">Jerseys y punto</a>
+                        <a href="#" class="block hover:underline">Leggings</a>
+                        <a href="#" class="block hover:underline">Mono largo</a>
+                        <a href="#" class="block hover:underline">Ropa playa</a>
+                        <a href="#" class="block hover:underline">Vestidos largos</a>
+                        <a href="#" class="block hover:underline">Homewear</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ropa Interior -->
+        <div class="group relative">
+            <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Ropa Interior</a>
+            <!-- Submenú de Ropa Interior -->
+            <div class="absolute left-0 top-full hidden group-hover:flex bg-black text-white py-4 px-6 shadow-lg w-[400px]">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="font-bold mb-2">Ropa Interior</h3>
+                        <a href="#" class="block hover:underline">Tops</a>
+                        <a href="#" class="block hover:underline">Brasieres</a>
+                        <a href="#" class="block hover:underline">Bodys</a>
+                    </div>
+                    <div>
+                        <a href="#" class="block hover:underline">Panties</a>
+                        <a href="#" class="block hover:underline">Fajas</a>
+                        <a href="#" class="block hover:underline">Conjuntos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Por Temporada -->
+        <div class="group relative">
+            <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Por Temporada</a>
+            <!-- Submenú de Temporada -->
+            <div class="absolute left-0 top-full hidden group-hover:flex bg-black text-white py-4 px-6 shadow-lg w-[400px]">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="font-bold mb-2">Temporada</h3>
+                        <a href="#" class="block hover:underline">Invierno</a>
+                        <a href="#" class="block hover:underline">Verano</a>
+                    </div>
+                    <div>
+                        <a href="#" class="block hover:underline">Primavera</a>
+                        <a href="#" class="block hover:underline">Otoño</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </nav>
 </header>

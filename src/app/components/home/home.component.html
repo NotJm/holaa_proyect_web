@@ -1,47 +1,78 @@
-<div class="relative w-full h-96">
-  <!-- Imagen de fondo con opacidad -->
-  <img src="./test.webp" alt="Header Image" class="w-full h-full object-cover object-[center_center] opacity-70">
 
+     <!-- Imagen Principal (con marcador de dimensiones) -->
+     <div class="w-full flex justify-center py-8">
+      <div class="relative w-full h-[80vh] bg-gray-200 flex items-center justify-center">
+          <!-- Imagen Principal -->
+          <img src="/first_2.jpg" alt="Imagen Principal" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; document.getElementById('dimension-placeholder').style.display = 'flex';">
+          
+          <!-- Texto superpuesto -->
+          <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+              <h1 class="text-white text-3xl md:text-5xl font-bold">Este es tu encabezado</h1>
+          </div>
   
-  <!-- Texto superpuesto -->
-  <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-      <h1 class="text-white text-3xl md:text-5xl font-bold">Este es tu encabezado</h1>
+          <!-- Marcador de Dimensiones (visible solo si la imagen falla en cargar) -->
+          <div id="dimension-placeholder" class="hidden absolute inset-0 w-full h-full flex items-center justify-center">
+              <span class="text-gray-400 text-3xl">800 x 450</span>
+          </div>
+      </div>
   </div>
-</div>
-
-
-
-<!-- Sección destacada -->
-<section class="container mx-auto px-4 py-12">
-  <h2 class="text-3xl font-bold text-center mb-8">Destacados</h2>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- Tarjeta de producto 1 -->
-    <div class="relative group">
-      <img src="https://via.placeholder.com/300x450" alt="Producto 1" class="w-full h-full object-cover rounded-lg">
-      <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-        <button class="bg-white text-black px-6 py-2 rounded-lg">Comprar Ahora</button>
-      </div>
-      <h3 class="text-center mt-4 text-xl font-semibold">Event Season</h3>
+  
+  
+    <!-- Sección de Ofertas -->
+    <div class="bg-gray-100 py-8">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Oferta 1 -->
+            <div class="bg-white text-center p-6 shadow-lg">
+                <h3 class="text-4xl font-bold text-red-600">-25%</h3>
+                <p class="text-gray-700 mt-2">En compras de +$2,699</p>
+            </div>
+  
+            <!-- Oferta 2 -->
+            <div class="bg-white text-center p-6 shadow-lg">
+                <h3 class="text-4xl font-bold text-red-600">-20%</h3>
+                <p class="text-gray-700 mt-2">En compras de +$1,599</p>
+            </div>
+  
+            <!-- Oferta 3 -->
+            <div class="bg-white text-center p-6 shadow-lg">
+                <h3 class="text-4xl font-bold text-red-600">-15%</h3>
+                <p class="text-gray-700 mt-2">En compras de +$699</p>
+            </div>
+        </div>
     </div>
-
-    <!-- Tarjeta de producto 2 -->
-    <div class="relative group">
-      <img src="https://via.placeholder.com/300x450" alt="Producto 2" class="w-full h-full object-cover rounded-lg">
-      <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-        <button class="bg-white text-black px-6 py-2 rounded-lg">Comprar Ahora</button>
-      </div>
-      <h3 class="text-center mt-4 text-xl font-semibold">Fall Dresses</h3>
-    </div>
-
-    <!-- Tarjeta de producto 3 -->
-    <div class="relative group">
-      <img src="https://via.placeholder.com/300x450" alt="Producto 3" class="w-full h-full object-cover rounded-lg">
-      <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-        <button class="bg-white text-black px-6 py-2 rounded-lg">Comprar Ahora</button>
-      </div>
-      <h3 class="text-center mt-4 text-xl font-semibold">Dark Romance</h3>
-    </div>
-  </div>
-</section>
-
-
+  
+    <!-- Sección destacada -->
+    <section class="container mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold text-center mb-8">Destacados</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Tarjeta de producto 1 -->
+            <div class="relative group">
+                <img src="/tree_1.jpg" alt="Producto 1" class="w-full h-full object-cover rounded-lg">
+                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <button class="bg-white text-black px-6 py-2 rounded-lg">Comprar Ahora</button>
+                </div>
+                <h3 class="text-center mt-4 text-xl font-semibold">Event Season</h3>
+            </div>
+  
+            <!-- Tarjeta de producto 2 -->
+            <div class="relative group">
+                <img src="/tree_2.jpg" alt="Producto 2" class="w-full h-full object-cover rounded-lg">
+                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <button class="bg-white text-black px-6 py-2 rounded-lg">Comprar Ahora</button>
+                </div>
+                <h3 class="text-center mt-4 text-xl font-semibold">Fall Dresses</h3>
+            </div>
+  
+            <!-- Tarjeta de producto 3 -->
+            <div class="relative group">
+                <img src="/tree_3.jpg" alt="Producto 3" class="w-full h-full object-cover rounded-lg">
+                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <button class="bg-white text-black px-6 py-2 rounded-lg">Comprar Ahora</button>
+                </div>
+                <h3 class="text-center mt-4 text-xl font-semibold">Dark Romance</h3>
+            </div>
+        </div>
+    </section>
+  
+   
+  
