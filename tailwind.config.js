@@ -1,30 +1,34 @@
 const { addDynamicIconSelectors } = require('@iconify/tailwind');
+
 // tailwind.config.js
 module.exports = {
+  darkMode: 'class', // Esto habilita el modo oscuro mediante la clase "dark"
   content: [
-    "./src/**/*.{html,ts}",
+    "./src/**/*.{html,ts}", // Escanea todos los archivos HTML y TS en tu carpeta src
   ],
   theme: {
     extend: {
-
-
+      // Definir colores personalizados
       backgroundColor: {
         platinum: "#E0E0E0",
         cerise: "#E91E63",
-        
+        // Colores para modo oscuro
+        'dark-background': '#1a202c', // Fondo en modo oscuro existente
+        'dark-surface': '#2d3748', // Otro color de superficie oscuro existente
+        'dark-alt-background': '#0d1117', // Nuevo color oscuro alternativo
       },
-      fontFamily: {
-        sans: ['Open Sans', 'sans-serif'],
-        montserrat: ['Montserrat', 'sans-serif'],
-      },
-      textColor : {
+      textColor: {
         cerise: "#E91E63",
+        // Colores de texto para modo oscuro
+        'dark-text': '#f7fafc', // Texto claro en modo oscuro
       },
       ringColor: {
         cerise: "#E91E63",
       },
       borderColor: {
         cerise: "#E91E63",
+        // Borde para modo oscuro
+        'dark-border': '#4a5568', // Borde oscuro para componentes
       },
       fill: {
         platinum: "#E0E0E0",
@@ -44,6 +48,8 @@ module.exports = {
         deepBurgundy: "#660016",
         strongCerise: "#D00050",
         darkCerise: "#A01744", 
+        // Colores adicionales para modo oscuro
+        'dark-cerise': '#7a0e30', // Variante oscura de cerise
       },
       keyframes: {
         slideIn: {
@@ -61,8 +67,7 @@ module.exports = {
       },
     },
   },
-
   plugins: [
-    addDynamicIconSelectors(),
+    addDynamicIconSelectors(), // Plugin para íconos
   ],
 };

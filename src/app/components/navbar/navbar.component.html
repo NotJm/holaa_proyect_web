@@ -1,54 +1,69 @@
-   <!-- Navbar -->
-   <header class="sticky top-0 bg-white shadow z-20 border-b border-gray-300"> 
+<!-- Navbar -->
+<header class="sticky top-0 bg-white dark:bg-gray-900 shadow z-20 border-b border-gray-300 dark:border-gray-700"> 
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
         <!-- Secciones de la empresa (a la izquierda) -->
-        <nav class="flex space-x-6 text-sm font-montserrat font-medium">
-            <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Nosotros</a>
+        <nav class="flex space-x-6 text-sm font-montserrat font-medium text-black dark:text-white">
+            <a href="./auth/login-admin" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Nosotros</a>
             <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Misión</a>
             <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Visión</a>
             <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Únete</a>
         </nav>
 
         <!-- Logo centrado -->
-        <div class="absolute left-1/2 transform -translate-x-1/2">
-            <a href="/">
-                <img src="./logo.webp" width="100" alt="Logo" />
-            </a>
-        </div>
+       
+<!-- Logo centrado -->
+<div class="absolute left-1/2 transform -translate-x-1/2">
+    <a href="/">
+      <!-- Logo claro -->
+      <img 
+        src="./logo.webp" 
+        alt="Logo claro" 
+        width="100" 
+        class="block dark:hidden w-24"
+      />
+      <!-- Logo oscuro con tamaño mayor -->
+      <img 
+        src="./logo2.png" 
+        alt="Logo oscuro" 
+        class="hidden dark:block w-24 dark:w-32"
+      />
+    </a>
+  </div>
+  
+  
+  
 
         <!-- Controles de búsqueda, registro, inicio de sesión y carrito (a la derecha) -->
         <div class="flex items-center space-x-4 ml-auto"> 
             <!-- Buscador -->
             <form class="relative">
-                <input type="text" placeholder="Buscar" class="border border-gray-300 rounded-full px-4 py-1 focus:outline-none focus:ring focus:border-cerise">
+                <input type="text" placeholder="Buscar" class="border border-gray-300 dark:border-gray-700 rounded-full px-4 py-1 focus:outline-none focus:ring focus:border-cerise">
                 <button type="submit" class="absolute right-0 top-0 mt-1 mr-2">
-                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"></path>
                     </svg>
                 </button>
             </form>
 
             <!-- Botón de registro -->
-            <div class="flex space-x-8"> <!-- Aumenta el espacio horizontal -->
+            <div class="flex space-x-8">
                 <a href="/auth/signin" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Registrarse</a>
-                <!-- Botón de inicio de sesión -->
                 <a href="/auth/login" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Iniciar sesión</a>
             </div>
             
             <!-- Ícono de la bolsa/carrito -->
-            <button class="hover:text-indigo-500 transform transition-transform duration-200 hover:scale-105">
-                <span class="icon-[mdi--shopping] w-8 h-8" style="color: black;"></span>
+            <button class="hover:text-indigo-500 dark:text-gray-300 transform transition-transform duration-200 hover:scale-105">
+                <span class="icon-[mdi--shopping] w-8 h-8"></span>
             </button>
         </div>
     </div>
 
     <!-- Navegación principal con submenús -->
-    <nav class="flex space-x-10 text-lg font-montserrat font-medium justify-center mt-4">
+    <nav class="flex space-x-10 text-lg font-montserrat font-medium justify-center mt-4 text-black dark:text-white">
         <!-- Ropa -->
         <div class="group relative">
             <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-105">Ropa</a>
-            <!-- Submenú de Ropa -->
-            <div class="absolute left-0 top-full hidden group-hover:flex bg-black text-white py-4 px-6 shadow-lg w-[600px]">
+            <div class="absolute left-0 top-full hidden group-hover:flex bg-black dark:bg-gray-800 text-white dark:text-gray-200 py-4 px-6 shadow-lg w-[600px]">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <h3 class="font-bold mb-2">Ropa</h3>
@@ -76,8 +91,7 @@
         <!-- Ropa Interior -->
         <div class="group relative">
             <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Ropa Interior</a>
-            <!-- Submenú de Ropa Interior -->
-            <div class="absolute left-0 top-full hidden group-hover:flex bg-black text-white py-4 px-6 shadow-lg w-[400px]">
+            <div class="absolute left-0 top-full hidden group-hover:flex bg-black dark:bg-gray-800 text-white dark:text-gray-200 py-4 px-6 shadow-lg w-[400px]">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <h3 class="font-bold mb-2">Ropa Interior</h3>
@@ -97,8 +111,7 @@
         <!-- Por Temporada -->
         <div class="group relative">
             <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Por Temporada</a>
-            <!-- Submenú de Temporada -->
-            <div class="absolute left-0 top-full hidden group-hover:flex bg-black text-white py-4 px-6 shadow-lg w-[400px]">
+            <div class="absolute left-0 top-full hidden group-hover:flex bg-black dark:bg-gray-800 text-white dark:text-gray-200 py-4 px-6 shadow-lg w-[400px]">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <h3 class="font-bold mb-2">Temporada</h3>
@@ -112,6 +125,5 @@
                 </div>
             </div>
         </div>
-
     </nav>
 </header>

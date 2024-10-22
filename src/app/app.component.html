@@ -4,17 +4,49 @@
 <!-- Mostrar todo el contenido solo si isLoading es false -->
 <ng-template #Home>
   <!-- Navbar -->
-  <app-navbar></app-navbar>
-
-
-  <!-- Contenido principal gestionado por el Router -->
-  <div class="min-h-screen bg-platinum">
-    <router-outlet></router-outlet>
-    <app-cookiebanner></app-cookiebanner>    
+  <div class="bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300">
+    <app-navbar></app-navbar>
   </div>
 
 
 
-  <!-- Footer -->
-  <!-- <app-footer></app-footer> Si tienes un footer -->
+  <!-- Contenido principal gestionado por el Router -->
+  <div class="min-h-screen bg-platinum dark:bg-gray-900 text-black dark:text-gray-100 transition-colors duration-300">
+    <router-outlet></router-outlet>
+    <app-cookiebanner></app-cookiebanner>    
+  </div>
+
+  <!-- Footer (si lo tienes, también debe tener soporte para modo oscuro) -->
+  <!-- <app-footer></app-footer> -->
+
+  <div class="fixed bottom-4 right-4 group">
+    <!-- Botón de Home (el que se muestra por defecto) -->
+    <div class="bg-yellow-500 w-12 h-12 rounded-full flex items-center justify-center cursor-pointer">
+        <span class="text-white text-2xl">?</span>
+    </div>
+
+    <!-- Contenedor de los íconos que aparecerán al hacer hover, desplegados hacia arriba -->
+    <div class="flex flex-col items-center space-y-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:translate-y-0 translate-y-16">
+        <!-- Icono de Instagram -->
+        <a href="https://instagram.com" target="_blank" class="block bg-pink-500 w-12 h-12 rounded-full flex items-center justify-center">
+            <img src="ruta/instagram.svg" alt="Instagram" class="w-6 h-6">
+        </a>
+
+        <!-- Icono de Facebook -->
+        <a href="https://facebook.com" target="_blank" class="block bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center">
+            <img src="ruta/facebook.svg" alt="Facebook" class="w-6 h-6">
+        </a>
+
+        <!-- Icono de WhatsApp -->
+        <a href="https://whatsapp.com" target="_blank" class="block bg-green-500 w-12 h-12 rounded-full flex items-center justify-center">
+            <img src="ruta/whatsapp.svg" alt="WhatsApp" class="w-6 h-6">
+        </a>
+
+        <!-- Botón para activar/desactivar el modo oscuro -->
+        <button class="block bg-black w-12 h-12 rounded-full flex items-center justify-center" (click)="toggleDarkMode()">
+            <span class="text-white text-2xl">🌙</span>
+        </button>
+    </div>
+</div>
+
 </ng-template>
