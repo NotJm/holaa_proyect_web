@@ -3,7 +3,7 @@ import { Component, OnInit, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Notyf } from 'notyf';
 import { AuthService } from '../../services/auth/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../services/data/data.service';
 
 @Component({
@@ -23,6 +23,7 @@ export class VerificationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private authService: AuthService,
     private dataService: DataService,
   ) {
@@ -57,6 +58,10 @@ export class VerificationComponent implements OnInit {
             message: `${response.message}`,
             duration: 5000,
           });
+
+          setTimeout(() => {
+            this.router.navigate(['auth/login']);
+          }, 5000);
 
         },
         error: (err) => {

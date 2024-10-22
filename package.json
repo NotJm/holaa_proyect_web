@@ -39,6 +39,7 @@
     "@angular/cli": "^18.2.9",
     "@angular/compiler-cli": "^18.2.0",
     "@iconify-json/icon-park-solid": "^1.2.1",
+    "@iconify-json/iconoir": "^1.2.2",
     "@iconify-json/line-md": "^1.2.2",
     "@iconify-json/map": "^1.2.1",
     "@iconify-json/material-symbols": "^1.2.4",

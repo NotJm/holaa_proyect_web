@@ -1,4 +1,4 @@
-<div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12  bg-white 
+<div *ngif="cookiesAccepted" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12  bg-white 
 shadow-2xl p-6 rounded-lg border border-gray-200 transition-all duration-500 ease-in-out"
     [ngClass]="{'translate-y-full opacity-0': cookiesAccepted, 'translate-y-0 opacity-100': !cookiesAccepted}">
 

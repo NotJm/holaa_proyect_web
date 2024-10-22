@@ -11,9 +11,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 export class LoadingComponent {
   isFadingOut = false;
 
-  onAnimationEnd() {
-    setTimeout(() => {
-      this.isFadingOut = true; 
-    }, 100); 
-  }
+  // onAnimationEnd() {
+  //   setTimeout(() => {
+  //     this.isFadingOut = true; 
+  //   }, 100); 
+  // }
 }

@@ -4,8 +4,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CookiebannerComponent } from './components/cookiebanner/cookiebanner.component';
-import { Subscription } from 'rxjs';
-import { CookieService } from './services/cookie/cookie.service';
 
 @Component({
   selector: 'app-root',
@@ -21,12 +19,13 @@ import { CookieService } from './services/cookie/cookie.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  isLoading: boolean = true;
+  
+  // isLoading: boolean = true;
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    // }, 3000);
   }
 
 }
