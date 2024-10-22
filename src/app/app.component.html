@@ -4,12 +4,16 @@
 <!-- Mostrar todo el contenido solo si isLoading es false -->
 <!-- <ng-template #Home> -->
   <!-- Navbar -->
-  <app-navbar></app-navbar>
+  <!-- <app-navbar></app-navbar> -->
+
 
   <!-- Contenido principal gestionado por el Router -->
   <div class="min-h-screen bg-platinum">
     <router-outlet></router-outlet>
+    <app-cookiebanner></app-cookiebanner>    
   </div>
+
+
 
   <!-- Footer -->
   <!-- <app-footer></app-footer> Si tienes un footer -->

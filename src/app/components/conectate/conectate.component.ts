@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
   FormGroup,
   Validators,
   ReactiveFormsModule,
+  FormBuilder,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Notyf } from 'notyf';
 import { AuthService } from '../../services/auth/auth.service';
-import { WebsocketService } from '../../services/websocket/websocket.service';
 import { CaptchaService } from '../../services/captcha/captcha.service';
 import { passwordsMatchValidator } from '../../validators/password.matchs.validator';
 import { DataService } from '../../services/data/data.service';
 import { TooltipModule } from 'primeng/tooltip';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule,  } from 'primeng/inputtext';
+import { FloatLabelModule } from 'primeng/floatlabel';
 import { passwordStrengthValidator } from '../../validators/password.strength.validator';
 import {
   hasCapitalLetter,
@@ -23,7 +22,7 @@ import {
   hasSpecialCharacter,
   isValidLength,
 } from '../../helpers/password.helpers';
-import { NotificationService } from  '../../services/notification/notification.service';
+import { NotificationService } from '../../services/notification/notification.service';
 
 // TODO: Informacion de componente
 @Component({
@@ -32,12 +31,7 @@ import { NotificationService } from  '../../services/notification/notification.s
   styleUrls: ['./conectate.component.css'],
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, TooltipModule, InputTextModule],
-  providers: [
-    AuthService,
-    WebsocketService,
-    CaptchaService,
-    NotificationService,
-  ],
+  providers: [AuthService, CaptchaService, NotificationService],
 })
 export class ConectateComponent implements OnInit {
   registerForm: FormGroup;
@@ -57,21 +51,22 @@ export class ConectateComponent implements OnInit {
     private notificationService: NotificationService
   ) {
     // Validacion de entradas de registro
-    this.registerForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(6)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          passwordStrengthValidator(),
+    this.registerForm = this.fb.group(
+      {
+        username: ['', [Validators.required, Validators.minLength(6)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            passwordStrengthValidator(),
+          ],
         ],
-      ],
-      confirmPassword: ['', [Validators.required]],
-    },
-    { validators: passwordsMatchValidator() }
-  );
+        confirmPassword: ['', [Validators.required]],
+      },
+      { validators: passwordsMatchValidator() }
+    );
 
     // Evaluar la fuerza de contraseña
     this.registerForm.get('password')?.statusChanges.subscribe((password) => {
@@ -88,7 +83,7 @@ export class ConectateComponent implements OnInit {
       }
     });
   }
-  
+
   ngOnInit(): void {
     this.captchaService.renderReCaptcha();
   }
@@ -148,7 +143,6 @@ export class ConectateComponent implements OnInit {
 
     return control.invalid && control.dirty ? true : false;
   }
-
 
   // Obtener el icono de la fortaleza de la contraseña
   getPasswordClasses(): { icon: string; border: string } {
@@ -228,15 +222,15 @@ export class ConectateComponent implements OnInit {
   }
 
   showFormErrors(): void {
-    Object.keys(this.registerForm.controls).forEach(key => {
+    Object.keys(this.registerForm.controls).forEach((key) => {
       const controlErrors = this.registerForm.get(key)?.errors;
       if (controlErrors) {
         console.log(`Errores en el campo ${key}:`, controlErrors);
       }
     });
-  
+
     this.notificationService.error(
-      "Por favor, ingrese los campos faltantes o corrija los errores"
+      'Por favor, ingrese los campos faltantes o corrija los errores'
     );
   }
 }
