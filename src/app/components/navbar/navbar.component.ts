@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
+import { SearchModalComponent } from '../search-modal/search-modal.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, SearchModalComponent],  // Asegúrate de incluir SearchModalComponent
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'] 
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
@@ -30,6 +31,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
+  // Utilizando ViewChild para abrir el modal
+  @ViewChild(SearchModalComponent) searchModal!: SearchModalComponent;
+
+  openSearchModal() {
+    if (this.searchModal) {
+      this.searchModal.openModal();
+    }
+  }
 
   ngOnDestroy() {
     if (this.authSubscription) {
@@ -38,3 +47,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
 }
+
