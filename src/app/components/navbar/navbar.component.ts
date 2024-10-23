@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ConectateComponent } from '../conectate/conectate.component';
+import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -10,16 +11,30 @@ import { ConectateComponent } from '../conectate/conectate.component';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'] 
 })
-export class NavbarComponent {
-  isModalOpen: boolean = false;
-  isMenuOpen: boolean = false; 
+export class NavbarComponent implements OnInit, OnDestroy {
 
-  toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen; 
+  isAuthenticated: boolean = false;
+  private authSubscription: Subscription = new Subscription();
+  
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.authSubscription = this.authService.getIsAuthenticated().subscribe(
+      (status) => {
+        this.isAuthenticated = status
+      }
+    )
+  }
+
+  logoutEvent() {
+    this.authService.logout();
   }
 
 
-  toggleRegisterModal(): void {
-
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
+
 }

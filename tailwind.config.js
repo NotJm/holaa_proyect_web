@@ -2,9 +2,9 @@ const { addDynamicIconSelectors } = require('@iconify/tailwind');
 
 // tailwind.config.js
 module.exports = {
-  darkMode: 'class', // Esto habilita el modo oscuro mediante la clase "dark"
+  darkMode: 'class',
   content: [
-    "./src/**/*.{html,ts}", // Escanea todos los archivos HTML y TS en tu carpeta src
+    "./src/**/*.{html,ts}", 
   ],
   theme: {
     extend: {

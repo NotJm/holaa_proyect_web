@@ -4,6 +4,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CookiebannerComponent } from './components/cookiebanner/cookiebanner.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './interceptor/jwt.interceptor';
+import { StorageService } from './services/storage.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,46 +20,51 @@ import { CookiebannerComponent } from './components/cookiebanner/cookiebanner.co
     CookiebannerComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'], // Estaba mal escrito, lo corregí a "styleUrls"
+  styleUrls: ['./app.component.css'],
+  providers: [
+    AuthService,
+    StorageService,
+    { provide: HTTP_INTERCEPTORS, useValue: JwtInterceptor, multi: true }
+  ]
 })
 export class AppComponent implements OnInit {
-<<<<<<< HEAD
-  
-  // isLoading: boolean = true;
+  isLoading: boolean = true;
+  isDarkMode: boolean = false;
+  darkMode!: string | null;
+
+  constructor(
+    private renderer: Renderer2,
+    private storageService: StorageService,
+  ) {
+    if (this.storageService.isLocalStorageAvailable()) {
+      this.darkMode = localStorage.getItem('darkMode');
+    }
+  }
 
   ngOnInit(): void {
     // setTimeout(() => {
     //   this.isLoading = false;
     // }, 3000);
-=======
-  isLoading: boolean = true;
-  isDarkMode: boolean = false;
-
-  constructor(private renderer: Renderer2) {}
-
-  ngOnInit(): void {
-    // Simular una carga inicial
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
-
-    // Revisar si el modo oscuro estaba activado anteriormente
-    const darkMode = localStorage.getItem('darkMode');
-    if (darkMode === 'true') {
+    
+    
+    if (this.darkMode === 'true') {
       this.isDarkMode = true;
       this.renderer.addClass(document.body, 'dark');
     }
->>>>>>> 618e0dd0ff3f1b252bbc97f4a430b5ac6c0490bc
   }
 
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
     if (this.isDarkMode) {
       this.renderer.addClass(document.body, 'dark');
-      localStorage.setItem('darkMode', 'true');
+      if (this.storageService.isLocalStorageAvailable()) {
+        this.storageService.setItem('darkMode', 'true');
+      }
     } else {
       this.renderer.removeClass(document.body, 'dark');
-      localStorage.setItem('darkMode', 'false');
+      if (this.storageService.isLocalStorageAvailable()) {
+        this.storageService.setItem('darkMode', 'false');
+      }
     }
   }
 }

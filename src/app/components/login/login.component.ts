@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
-import { NotificationService } from '../../services/notification/notification.service';
+import { AuthService } from '../../services/auth.service';
+import { NotificationService } from '../../services/notification.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { NotificationService } from '../../services/notification/notification.se
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  providers: [AuthService]
+  // providers: [StorageService]
 })
 export class LoginComponent {
 
@@ -21,10 +22,11 @@ export class LoginComponent {
   isPasswordVisible: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private authService: AuthService,
-    private notificationService: NotificationService
+    private readonly fb: FormBuilder,
+    private readonly router: Router, 
+    private readonly authService: AuthService,
+    private readonly notificationService: NotificationService,
+    private readonly cookieService: CookieService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -43,7 +45,13 @@ export class LoginComponent {
 
       this.authService.login(loginData).subscribe({
         next: (response) => {
+
           this.notificationService.success(response.message);
+
+          this.cookieService.set('token', response.token);
+
+          this.router.navigate(['/']);
+
         },
         error: (err) => {
           this.notificationService.error(err.message);

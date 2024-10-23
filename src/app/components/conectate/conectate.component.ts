@@ -7,13 +7,12 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
-import { CaptchaService } from '../../services/captcha/captcha.service';
+import { AuthService } from '../../services/auth.service';
+import { CaptchaService } from '../../services/captcha.service';
 import { passwordsMatchValidator } from '../../validators/password.matchs.validator';
-import { DataService } from '../../services/data/data.service';
+import { DataService } from '../../services/data.service';
 import { TooltipModule } from 'primeng/tooltip';
-import { InputTextModule,  } from 'primeng/inputtext';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
 import { passwordStrengthValidator } from '../../validators/password.strength.validator';
 import {
   hasCapitalLetter,
@@ -22,16 +21,26 @@ import {
   hasSpecialCharacter,
   isValidLength,
 } from '../../helpers/password.helpers';
-import { NotificationService } from '../../services/notification/notification.service';
+import { NotificationService } from '../../services/notification.service';
+import {CookieService} from 'ngx-cookie-service';
 
-// TODO: Informacion de componente
 @Component({
   selector: 'app-conectate',
   templateUrl: './conectate.component.html',
   styleUrls: ['./conectate.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, TooltipModule, InputTextModule, RouterLink],
-  providers: [AuthService, CaptchaService, NotificationService],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    TooltipModule,
+    InputTextModule,
+    RouterLink,
+  ],
+  providers: [
+    CaptchaService,
+    NotificationService, 
+    CookieService
+  ],
 })
 export class ConectateComponent implements OnInit {
   registerForm: FormGroup;
@@ -43,12 +52,13 @@ export class ConectateComponent implements OnInit {
   isPasswordVisible: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private authService: AuthService,
-    private captchaService: CaptchaService,
-    private dataService: DataService,
-    private notificationService: NotificationService
+    private readonly fb: FormBuilder,
+    private readonly router:  Router,
+    private readonly authService: AuthService,
+    private readonly captchaService: CaptchaService,
+    private readonly dataService: DataService,
+    private readonly notificationService: NotificationService,
+    private readonly cookieService: CookieService,
   ) {
     // Validacion de entradas de registro
     this.registerForm = this.fb.group(
@@ -69,7 +79,7 @@ export class ConectateComponent implements OnInit {
     );
 
     // Evaluar la fuerza de contraseña
-    this.registerForm.get('password')?.statusChanges.subscribe((password) => {
+    this.registerForm.get('password')?.statusChanges.subscribe(() => {
       const errors = this.registerForm.get('password')?.errors;
 
       if (errors?.['passwordStrength'] === 'weak') {
@@ -105,11 +115,9 @@ export class ConectateComponent implements OnInit {
 
           this.dataService.setEmail(email);
 
-          localStorage.setItem('otpVerificationPending', 'true');
+          this.cookieService.set('verification-pending', 'true');
 
-          setTimeout(() => {
-            this.router.navigate(['auth/verify/otp']);
-          }, 5000);
+          this.router.navigate(['auth/verify/otp']);
         },
         error: (err) => {
           console.log(err);

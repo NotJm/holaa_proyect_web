@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Notyf } from 'notyf';
-import { AuthService } from '../../services/auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from '../../services/data/data.service';
+import { DataService } from '../../services/data.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-verification',
@@ -22,10 +23,11 @@ export class VerificationComponent implements OnInit {
   email!: Signal<string>;
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private authService: AuthService,
-    private dataService: DataService,
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly authService: AuthService,
+    private readonly dataService: DataService,
+    private readonly notificationService: NotificationService
   ) {
     this.otpForm = this.fb.group({
       otp1: ['', [Validators.required, Validators.maxLength(1)]],
@@ -54,21 +56,13 @@ export class VerificationComponent implements OnInit {
 
       this.authService.verify_otp(otpData).subscribe({
         next: (response) => {
-          this.notyf.success({
-            message: `${response.message}`,
-            duration: 5000,
-          });
+          this.notificationService.success(response.message);
 
-          setTimeout(() => {
-            this.router.navigate(['auth/login']);
-          }, 5000);
-
+          this.router.navigate(['auth/login']);
+          
         },
         error: (err) => {
-          this.notyf.error({
-            message: `${err.message}`,
-            duration: 5000,
-          });
+          this.notificationService.error(err.message);
         }
       })
 
