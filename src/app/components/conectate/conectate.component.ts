@@ -6,7 +6,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { CaptchaService } from '../../services/captcha/captcha.service';
 import { passwordsMatchValidator } from '../../validators/password.matchs.validator';
@@ -30,7 +30,7 @@ import { NotificationService } from '../../services/notification/notification.se
   templateUrl: './conectate.component.html',
   styleUrls: ['./conectate.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, TooltipModule, InputTextModule],
+  imports: [ReactiveFormsModule, CommonModule, TooltipModule, InputTextModule, RouterLink],
   providers: [AuthService, CaptchaService, NotificationService],
 })
 export class ConectateComponent implements OnInit {
@@ -76,7 +76,7 @@ export class ConectateComponent implements OnInit {
         this.passwordStrength = 'weak';
       } else if (errors?.['passwordStrength'] === 'medium') {
         this.passwordStrength = 'medium';
-      } else if (errors?.['passwordStrength'] === 'strong') {
+      } else if (!errors) {
         this.passwordStrength = 'strong';
       } else {
         this.passwordStrength = ''; // Resetear si no hay errores
@@ -105,11 +105,14 @@ export class ConectateComponent implements OnInit {
 
           this.dataService.setEmail(email);
 
+          localStorage.setItem('otpVerificationPending', 'true');
+
           setTimeout(() => {
             this.router.navigate(['auth/verify/otp']);
           }, 5000);
         },
         error: (err) => {
+          console.log(err);
           this.notificationService.error(err.message);
         },
       });

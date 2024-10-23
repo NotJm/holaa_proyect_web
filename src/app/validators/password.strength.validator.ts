@@ -18,9 +18,11 @@ export function passwordStrengthValidator(): ValidatorFn {
       return { passwordStrength: 'weak' };  
     } else if (strength === 3 || strength === 4) {
       return { passwordStrength: 'medium' }; 
-    }
+    } 
 
     return null;
+
+    
     
   };
 }

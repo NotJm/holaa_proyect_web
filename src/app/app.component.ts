@@ -4,8 +4,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CookiebannerComponent } from './components/cookiebanner/cookiebanner.component';
-import { Subscription } from 'rxjs';
-import { CookieService } from './services/cookie/cookie.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +19,15 @@ import { CookieService } from './services/cookie/cookie.service';
   styleUrls: ['./app.component.css'], // Estaba mal escrito, lo corregí a "styleUrls"
 })
 export class AppComponent implements OnInit {
+<<<<<<< HEAD
+  
+  // isLoading: boolean = true;
+
+  ngOnInit(): void {
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    // }, 3000);
+=======
   isLoading: boolean = true;
   isDarkMode: boolean = false;
 
@@ -38,5 +45,6 @@ export class AppComponent implements OnInit {
       this.isDarkMode = true;
       this.renderer.addClass(document.body, 'dark');
     }
+>>>>>>> 618e0dd0ff3f1b252bbc97f4a430b5ac6c0490bc
   }
 }
