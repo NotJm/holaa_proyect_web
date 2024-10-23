@@ -22,7 +22,7 @@ export class OtpGuard implements CanActivate {
       this.cookieService.delete('verification-peding');
       return true; 
     } else {
-      this.router.navigate(['/auth/signin']);
+      this.router.navigate(['/']);
       return false;
     }
   }

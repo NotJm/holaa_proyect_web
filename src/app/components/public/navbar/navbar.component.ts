@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
-import { SearchModalComponent } from '../search-modal/search-modal.component';
+import { SearchModalComponent } from '../../admin/search-modal/search-modal.component';
 
 @Component({
   selector: 'app-navbar',
@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authSubscription = this.authService.getIsAuthenticated().subscribe(
       (status) => {
+        console.log("Status ", status);
         this.isAuthenticated = status
       }
     )

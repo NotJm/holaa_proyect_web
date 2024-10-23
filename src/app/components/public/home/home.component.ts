@@ -2,6 +2,7 @@ import { Component, Renderer2, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LoadingComponent } from '../loading/loading.component';
 import { CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +14,14 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent implements OnInit {
   isDarkMode: boolean = false;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private cookieService: CookieService,
+  ) {}
 
   ngOnInit(): void {
     // Revisar si el modo oscuro estaba activado anteriormente
-    const darkMode = localStorage.getItem('darkMode');
+    const darkMode = this.cookieService.get('darkMode');
     if (darkMode === 'true') {
       this.isDarkMode = true;
       this.renderer.addClass(document.body, 'dark');
@@ -28,10 +32,10 @@ export class HomeComponent implements OnInit {
     this.isDarkMode = !this.isDarkMode;
     if (this.isDarkMode) {
       this.renderer.addClass(document.body, 'dark');
-      localStorage.setItem('darkMode', 'true');
+      this.cookieService.set('darkMode', 'true');
     } else {
       this.renderer.removeClass(document.body, 'dark');
-      localStorage.setItem('darkMode', 'false');
+      this.cookieService.set('darkMode', 'false');
     }
   }
 }

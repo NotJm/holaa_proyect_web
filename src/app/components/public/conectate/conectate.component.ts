@@ -7,21 +7,21 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { CaptchaService } from '../../services/captcha.service';
-import { passwordsMatchValidator } from '../../validators/password.matchs.validator';
-import { DataService } from '../../services/data.service';
+import { AuthService } from '../../../services/auth.service';
+import { CaptchaService } from '../../../services/captcha.service';
+import { passwordsMatchValidator } from '../../../validators/password.matchs.validator';
+import { DataService } from '../../../services/data.service';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
-import { passwordStrengthValidator } from '../../validators/password.strength.validator';
+import { passwordStrengthValidator } from '../../../validators/password.strength.validator';
 import {
   hasCapitalLetter,
   hasNumber,
   hasNoSpaces,
   hasSpecialCharacter,
   isValidLength,
-} from '../../helpers/password.helpers';
-import { NotificationService } from '../../services/notification.service';
+} from '../../../helpers/password.helpers';
+import { NotificationService } from '../../../services/notification.service';
 import {CookieService} from 'ngx-cookie-service';
 
 @Component({

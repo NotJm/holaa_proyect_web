@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router'; // Asegúrate de importar Router
 import { CookieService } from 'ngx-cookie-service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class AuthService {
 
   private hasToken(): boolean {
     if(this.cookieService){
-      const token = this.cookieService.get('auth_token');
+      const token = this.cookieService.get('token');
       
       if (!token) {
         return false;
@@ -45,7 +46,7 @@ export class AuthService {
         withCredentials: true,
       })
       .pipe(
-        tap(() => {
+        tap(() => { 
           this.isAuthenticatedSubject.next(true);
         }),
         catchError((error) => {
@@ -102,10 +103,43 @@ export class AuthService {
       );
   }
 
+  isAdmin(): boolean {
+    const token = this.cookieService.get('token');
+  
+    if (token) {
+      try {
+        const payload: any = jwtDecode(token);
+        return payload.role === 'admin'; 
+      } catch (error) {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+  
   logout() {
+    // Cambiar el estado de autenticación a falso
     this.isAuthenticatedSubject.next(false);
-    this.cookieService.delete('auth_token');
-    this.cookieService.delete('refresh_token');
-    this.router.navigate(['/auth/login']);
+  
+    // Eliminar el token de las cookies
+    this.cookieService.delete('token');
+  
+    // Verificar si el token ha sido eliminado correctamente
+    const tokenExists = this.cookieService.get('token');
+    if (!tokenExists) {
+      console.log('Token eliminado correctamente');
+    } else {
+      console.error('Error: No se pudo eliminar el token');
+    }
+  
+    // Redirigir al login
+    this.router.navigate(['/auth/login']).then(navigated => {
+      if (navigated) {
+        console.log('Redirigido al login correctamente');
+      } else {
+        console.error('Error: No se pudo redirigir al login');
+      }
+    });
   }
 }

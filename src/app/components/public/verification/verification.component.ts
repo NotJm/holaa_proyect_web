@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Notyf } from 'notyf';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from '../../services/data.service';
-import { NotificationService } from '../../services/notification.service';
+import { DataService } from '../../../services/data.service';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-verification',

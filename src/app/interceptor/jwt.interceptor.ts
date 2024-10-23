@@ -19,7 +19,7 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     // Obtener el token JWT de localStorage
-    const token = this.cookieService.get('auth_token');
+    const token = this.cookieService.get('token');
 
     // Clonamos la solicitud y añadimos el token si existe
     if (token) {
@@ -60,7 +60,7 @@ export class JwtInterceptor implements HttpInterceptor {
             this.refreshTokenSubject.next(newToken);
 
             // Guardamos el nuevo token en localStorage
-            this.cookieService.set('auth_token', newToken);
+            this.cookieService.set('token', newToken);
 
             // Reintentamos la solicitud original con el nuevo token
             return next.handle(this.addTokenToRequest(req, newToken));

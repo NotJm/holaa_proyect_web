@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { NotificationService } from '../../services/notification.service';
+import { AuthService } from '../../../services/auth.service';
+import { NotificationService } from '../../../services/notification.service';
 import { CookieService } from 'ngx-cookie-service';
+import { jwtDecode } from 'jwt-decode';
 
 
 @Component({
@@ -13,7 +14,6 @@ import { CookieService } from 'ngx-cookie-service';
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  // providers: [StorageService]
 })
 export class LoginComponent {
 
@@ -47,10 +47,16 @@ export class LoginComponent {
         next: (response) => {
 
           this.notificationService.success(response.message);
+          
 
           this.cookieService.set('token', response.token);
 
-          this.router.navigate(['/']);
+          if (!this.authService.isAdmin()) {
+            this.router.navigate(['/']);
+          } else {
+            this.router.navigate(['/admin']);
+          }
+
 
         },
         error: (err) => {
