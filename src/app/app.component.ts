@@ -39,15 +39,4 @@ export class AppComponent implements OnInit {
       this.renderer.addClass(document.body, 'dark');
     }
   }
-
-  toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
-    if (this.isDarkMode) {
-      this.renderer.addClass(document.body, 'dark');
-      localStorage.setItem('darkMode', 'true');
-    } else {
-      this.renderer.removeClass(document.body, 'dark');
-      localStorage.setItem('darkMode', 'false');
-    }
-  }
 }
