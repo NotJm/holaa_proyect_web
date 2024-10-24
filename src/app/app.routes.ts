@@ -12,6 +12,11 @@ import { IncidenciasAdminComponent } from './components/admin/incidencias-admin/
 import { OtpGuard } from './guard/otp.guard';
 import { adminGuard } from './guard/admin.guard';
 import { LogoAdminComponent } from './components/admin/logo-admin/logo-admin.component';
+import { OlvidarPasswordComponent } from './components/public/olvidar-password/olvidar-password.component';
+import { VerificarOtpComponent } from './components/public/verificar-otp/verificar-otp.component';
+import { CambiarPasswordComponent } from './components/public/cambiar-password/cambiar-password.component';
+import { PoliticasComponent } from './components/public/politicas/politicas.component';
+import { combineLatest } from 'rxjs';
 import { DocumentoRegulatorioComponent } from './components/admin/documento-regulatorio/documento-regulatorio.component';
 
 
@@ -20,6 +25,10 @@ export const routes: Routes = [
   { path: 'signup', component: ConectateComponent}, 
   { path: 'login', component: LoginComponent },
   { path: 'verification/email', component: VerificationComponent, canActivate: [OtpGuard]},
+  { path: 'olvidar-pass', component: OlvidarPasswordComponent},
+  { path: 'verificar-opt', component: VerificarOtpComponent},
+  { path: 'cambiar-pass', component: CambiarPasswordComponent},
+  { path: 'politicas', component: PoliticasComponent},
   { path: 'admin', component: HomeAdminComponent, canActivate: [adminGuard],
     children: [
       { path: 'user', component: UserAdminComponent},
