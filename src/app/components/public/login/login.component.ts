@@ -35,6 +35,7 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
+    
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
 
@@ -45,23 +46,20 @@ export class LoginComponent {
 
       this.authService.login(loginData).subscribe({
         next: (response) => {
-
+          // Enviamos una notificacion sobre que incio sesion correctamente
           this.notificationService.success(response.message);
           
-
-          this.cookieService.set('token', response.token);
-
-          if (!this.authService.isAdmin()) {
-            this.router.navigate(['/']);
-          } else {
+          // Confirmamos si es un administrador 
+          // TODO Verificar si es una buena practica esto
+          if (!this.authService.isAdmin()) 
+                this.router.navigate(['/']);
+          else 
             this.router.navigate(['/admin']);
-          }
 
 
         },
-        error: (err) => {
-          this.notificationService.error(err.message);
-        }
+        // En cualquier otro caso notificamos que hubo un error
+        error: (err) => this.notificationService.error(err.message)
       })
     }
   }

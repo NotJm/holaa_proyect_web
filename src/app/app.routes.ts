@@ -11,15 +11,15 @@ import { UserAdminComponent } from './components/admin/user-admin/user-admin.com
 import { PoliticasAdminComponent } from './components/admin/politicas-admin/politicas-admin.component';
 import { IncidenciasAdminComponent } from './components/admin/incidencias-admin/incidencias-admin.component';
 import { OtpGuard } from './guard/otp.guard';
-import { AdminAuthGuard } from './guard/admin.auth.guard';
+import { adminGuard } from './guard/admin.guard';
 
 
 export const routes: Routes = [
   { path: '', component: HomeComponent},  
-  { path: 'auth/signin', component: ConectateComponent,  }, 
-  { path: 'auth/login', component: LoginComponent},
-  { path: 'auth/verify/otp', component: VerificationComponent, canActivate: [OtpGuard]},
-  { path: 'admin', component: HomeAdminComponent, canActivate: [AdminAuthGuard],
+  { path: 'signup', component: ConectateComponent}, 
+  { path: 'login', component: LoginComponent },
+  { path: 'verification/email', component: VerificationComponent, canActivate: [OtpGuard]},
+  { path: 'admin', component: HomeAdminComponent, canActivate: [adminGuard],
     children: [
       { path: 'user', component: UserAdminComponent},
       { path: 'politicas', component: PoliticasAdminComponent},
