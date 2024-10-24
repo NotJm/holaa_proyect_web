@@ -4,8 +4,6 @@ import { NavbarComponent } from './components/public/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components/public/loading/loading.component';
 import { CookiebannerComponent } from './components/public/cookiebanner/cookiebanner.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtInterceptor } from './interceptor/jwt.interceptor';
 import { AuthService } from './services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -23,7 +21,6 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./app.component.css'],
   providers: [
     AuthService,
-    { provide: HTTP_INTERCEPTORS, useValue: JwtInterceptor, multi: true }
   ]
 })
 export class AppComponent implements OnInit {

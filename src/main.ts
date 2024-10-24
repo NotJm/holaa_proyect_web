@@ -4,11 +4,15 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './app/interceptor/auth.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor])
+    ),
     provideRouter(routes),
     ...appConfig.providers,
     provideAnimationsAsync(),

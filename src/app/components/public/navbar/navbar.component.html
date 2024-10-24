@@ -3,7 +3,8 @@
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
         <!-- Secciones de la empresa (a la izquierda) -->
         <nav class="flex space-x-6 text-sm font-montserrat font-medium text-black dark:text-white">
-            <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Nosotros</a>
+            <a href="#"
+                class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Nosotros</a>
             <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Misión</a>
             <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Visión</a>
             <a href="#" class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">Únete</a>
@@ -40,22 +41,19 @@
             </form>
 
             <!-- Botón de registro -->
-            <div class="flex space-x-8" *ngIf="!isAuthenticated ; else authenticatedTemplate">
-
-                <a  routerLink="/auth/signin"
-                    class="hover:text-cerise transform transition-transform duration-200 
-                    hover:scale-125">
+            <div class="flex space-x-8" *ngIf="!authService.isAuthenticated(); else authTemplate">
+                <a routerLink="/signup"
+                    class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">
                     Registrarse
                 </a>
-                <a routerLink="/auth/login"
+                <a routerLink="/login"
                     class="hover:text-cerise transform transition-transform duration-200 hover:scale-125">
-                    Iniciar
-                    sesión
+                    Iniciar sesión
                 </a>
             </div>
 
-            <ng-template #authenticatedTemplate>
-                <a (click)="logoutEvent()"
+            <ng-template #authTemplate>
+                <a (click)="logout()"
                     class="hover:text-cerise cursor-pointer transform transition-transform duration-200 hover:scale-125">
                     Cerrar Sesion
                 </a>
@@ -144,6 +142,6 @@
     </nav>
 
     <!-- Modal de búsqueda -->
-    <app-search-modal></app-search-modal>
+    <!-- <app-search-modal></app-search-modal> -->
 
 </header>

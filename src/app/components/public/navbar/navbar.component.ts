@@ -1,50 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../../services/auth.service';
-import { Subscription } from 'rxjs';
-import { SearchModalComponent } from '../../admin/search-modal/search-modal.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, SearchModalComponent],  // Asegúrate de incluir SearchModalComponent
+  imports: [CommonModule, RouterLink],  
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  providers: [CookieService]
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit {
 
-  isAuthenticated: boolean = false;
-  private authSubscription: Subscription = new Subscription();
-  
-  constructor(private authService: AuthService) {}
+  constructor(
+    public readonly authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.authService.getIsAuthenticated().subscribe(
-      (status) => {
-        console.log("Status ", status);
-        this.isAuthenticated = status
-      }
-    )
+    this.authService.checkTokenOnInit();
   }
-
-  logoutEvent() {
+  
+  // Implementacion y funcionalidad de logout
+  logout() {
     this.authService.logout();
-  }
-
-  // Utilizando ViewChild para abrir el modal
-  @ViewChild(SearchModalComponent) searchModal!: SearchModalComponent;
-
-  openSearchModal() {
-    if (this.searchModal) {
-      this.searchModal.openModal();
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
-    }
   }
 
 }
