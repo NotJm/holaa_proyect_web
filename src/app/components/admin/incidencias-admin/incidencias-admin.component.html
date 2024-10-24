@@ -39,19 +39,19 @@
   <!-- Lista de usuarios bloqueados (ocupa el ancho completo) -->
   <div class="bg-white p-6 rounded shadow-md overflow-x-auto">
     <h2 class="text-xl font-semibold mb-4">Lista de usuarios bloqueados</h2>
-    <table class="min-w-full border border-gray-300">
+    <table class="w-full table-auto border border-gray-300 rounded-lg shadow-md my-6">
       <thead>
         <tr class="bg-gray-200 text-left">
-          <th class="p-4 border">Nombre</th>
-          <th class="p-4 border">Bloqueado Desde</th>
-          <th class="p-4 border">Razón</th>
+          <th class="p-6 border border-gray-300">Nombre</th>
+          <th class="p-6 border border-gray-300">Bloqueado Desde</th>
+          <th class="p-6 border border-gray-300">Razón</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let usuario of getUsuariosFiltrados()" class="bg-white">
-          <td class="p-4 border">{{ usuario.nombre }}</td>
-          <td class="p-4 border">{{ usuario.bloqueadoDesde | date: 'longDate' }}</td>
-          <td class="p-4 border">{{ usuario.razon }}</td>
+        <tr *ngFor="let user of blockedUsers" class="bg-white hover:bg-gray-50">
+          <td class="p-6 border border-gray-300">{{ user.username }}</td>
+          <td class="p-6 border border-gray-300">{{ user.blockedSince | date }}</td>
+          <td class="p-6 border border-gray-300">{{ user.reason }}</td>
         </tr>
       </tbody>
     </table>

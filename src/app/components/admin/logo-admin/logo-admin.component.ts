@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-logo-admin',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './logo-admin.component.html',
   styleUrls: ['./logo-admin.component.css']
 })

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="w-full max-w-full mx-auto p-8 space-y-8">
   <h1 class="text-3xl font-bold mb-6 text-center">Usuarios</h1>
   
@@ -27,3 +28,25 @@
     </table>
   </div>
 </div>
+=======
+<table class="min-w-full border border-gray-300">
+  <thead>
+    <tr class="bg-gray-200 text-left">
+      <th class="p-4 border">Nombre de Usuario</th>
+      <th class="p-4 border">Correo</th>
+      <th class="p-4 border">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usuario of usuarios" class="bg-white">
+      <td class="p-4 border">{{ usuario.username }}</td>
+      <td class="p-4 border">{{ usuario.email }}</td>
+      <td class="p-4 border">
+        <span [ngClass]="usuario.emailIsVerify ? 'text-green-600' : 'text-gray-500'">
+          {{ usuario.emailIsVerify ? 'Verificado' : 'No Verificado' }}
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+>>>>>>> 59609ea75d1c62524106f04487b55156d26322bd
