@@ -15,6 +15,8 @@ import { LogoAdminComponent } from './components/admin/logo-admin/logo-admin.com
 import { OlvidarPasswordComponent } from './components/public/olvidar-password/olvidar-password.component';
 import { VerificarOtpComponent } from './components/public/verificar-otp/verificar-otp.component';
 import { CambiarPasswordComponent } from './components/public/cambiar-password/cambiar-password.component';
+import { PoliticasComponent } from './components/public/politicas/politicas.component';
+import { combineLatest } from 'rxjs';
 
 
 export const routes: Routes = [
@@ -23,6 +25,9 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'verification/email', component: VerificationComponent, canActivate: [OtpGuard]},
   { path: 'olvidar-pass', component: OlvidarPasswordComponent},
+  { path: 'verificar-opt', component: VerificarOtpComponent},
+  { path: 'cambiar-pass', component: CambiarPasswordComponent},
+  { path: 'politicas', component: PoliticasComponent},
   { path: 'admin', component: HomeAdminComponent, canActivate: [adminGuard],
     children: [
       { path: 'user', component: UserAdminComponent},
