@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.checkTokenOnInit();
+  //  this.authService.verification();
   }
   
   // Implementacion y funcionalidad de logout
