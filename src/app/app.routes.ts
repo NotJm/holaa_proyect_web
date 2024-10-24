@@ -12,6 +12,7 @@ import { PoliticasAdminComponent } from './components/admin/politicas-admin/poli
 import { IncidenciasAdminComponent } from './components/admin/incidencias-admin/incidencias-admin.component';
 import { OtpGuard } from './guard/otp.guard';
 import { AdminAuthGuard } from './guard/admin.auth.guard';
+import { LogoAdminComponent } from './components/admin/logo-admin/logo-admin.component';
 
 
 export const routes: Routes = [
@@ -24,6 +25,7 @@ export const routes: Routes = [
       { path: 'user', component: UserAdminComponent},
       { path: 'politicas', component: PoliticasAdminComponent},
       { path: 'incidencias', component: IncidenciasAdminComponent},
+      { path: 'logo', component: LogoAdminComponent},
     ]
    },
   
