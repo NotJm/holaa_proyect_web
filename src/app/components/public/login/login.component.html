@@ -66,16 +66,29 @@
             </small>
           </div> -->
 
-          <!-- Botón para Iniciar Sesión -->
-          <button 
-            type="submit"
-            class="font-montserrat w-full bg-black text-white py-2 rounded-md 
-            hover:bg-gray-800 mt-4">
-            Iniciar Sesión
-          </button>
-          <small class="text-center font-sans text-sm">
-            <p>¿No te has registrado? Haz clic <a href="auth/signin" aria-label="Conectate" class="text-indigo-500 underline">aquí</a> para registrarte.</p>
-          </small>
+        <!-- Botón para Iniciar Sesión -->
+<button 
+type="submit"
+class="font-montserrat w-full bg-black text-white py-2 rounded-md 
+hover:bg-gray-800 mt-4">
+Iniciar Sesión
+</button>
+
+<small class="block text-center font-sans text-sm mt-4">
+<p class="mb-2">¿No te has registrado? Haz clic 
+  <a href="auth/signin" aria-label="Conectate" 
+     class="text-indigo-500 font-medium underline hover:text-indigo-700 transition-colors duration-200">
+    aquí
+  </a> 
+  para registrarte.
+</p>
+<!--  -->
+<a href="/auth/olvidar-pass" 
+   class="text-gray-600 font-medium hover:text-gray-800 transition-colors duration-200">
+  ¿Olvidaste tu contraseña?
+</a>
+</small>
+
 
           <!-- Línea divisoria para oAuth -->
           <!-- <div class="flex items-center justify-between mt-4">

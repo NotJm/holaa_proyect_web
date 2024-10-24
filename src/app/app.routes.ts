@@ -13,6 +13,9 @@ import { IncidenciasAdminComponent } from './components/admin/incidencias-admin/
 import { OtpGuard } from './guard/otp.guard';
 import { AdminAuthGuard } from './guard/admin.auth.guard';
 import { LogoAdminComponent } from './components/admin/logo-admin/logo-admin.component';
+import { OlvidarPasswordComponent } from './components/public/olvidar-password/olvidar-password.component';
+import { VerificarOtpComponent } from './components/public/verificar-otp/verificar-otp.component';
+import { CambiarPasswordComponent } from './components/public/cambiar-password/cambiar-password.component';
 
 
 export const routes: Routes = [
@@ -20,6 +23,9 @@ export const routes: Routes = [
   { path: 'auth/signin', component: ConectateComponent,  }, 
   { path: 'auth/login', component: LoginComponent},
   { path: 'auth/verify/otp', component: VerificationComponent, canActivate: [OtpGuard]},
+  { path: 'auth/olvidar-pass', component: OlvidarPasswordComponent},
+  { path: 'auth/verificar-otp', component: VerificarOtpComponent},
+  { path: 'auth/cambiar-pass', component: CambiarPasswordComponent},
   { path: 'admin', component: HomeAdminComponent, canActivate: [AdminAuthGuard],
     children: [
       { path: 'user', component: UserAdminComponent},

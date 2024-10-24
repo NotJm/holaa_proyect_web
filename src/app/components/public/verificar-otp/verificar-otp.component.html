@@ -1,0 +1,81 @@
+<div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg mt-44 text-center">
+  <!-- Ícono de verificación SVG -->
+  <div class="mb-6">
+    <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 32 32" class="text-green-500 mx-auto">
+      <path fill="currentColor" d="M14 16.59L11.41 14L10 15.41l4 4l8-8L20.59 10z"/>
+      <path fill="currentColor" d="m16 30l-6.176-3.293A10.98 10.98 0 0 1 4 17V4a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v13a10.98 10.98 0 0 1-5.824 9.707ZM6 4v13a8.99 8.99 0 0 0 4.766 7.942L16 27.733l5.234-2.79A8.99 8.99 0 0 0 26 17V4Z"/>
+    </svg>
+  </div>
+
+  <h2 class="text-3xl font-bold text-center mb-6">Verificar OTP</h2>
+
+  <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div class="flex justify-between">
+      <!-- Generamos 6 campos de entrada para el OTP -->
+      <input
+        type="text"
+        maxlength="1"
+        formControlName="otp1"
+        class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        required
+      />
+      <input
+        type="text"
+        maxlength="1"
+        formControlName="otp2"
+        class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        required
+      />
+      <input
+        type="text"
+        maxlength="1"
+        formControlName="otp3"
+        class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        required
+      />
+      <input
+        type="text"
+        maxlength="1"
+        formControlName="otp4"
+        class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        required
+      />
+      <input
+        type="text"
+        maxlength="1"
+        formControlName="otp5"
+        class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        required
+      />
+      <input
+        type="text"
+        maxlength="1"
+        formControlName="otp6"
+        class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        required
+      />
+    </div>
+
+    <div *ngIf="otpForm.invalid && otpForm.touched" class="text-red-500 mt-2 text-sm text-center">
+      <small *ngIf="otpForm.errors?.['required']">Todos los campos son obligatorios</small>
+      <small *ngIf="otpForm.errors?.['minlength']">El OTP debe tener 6 dígitos</small>
+    </div>
+
+    <!-- Botón para Verificar OTP -->
+    <button
+      type="submit"
+      [disabled]="otpForm.invalid"
+      class="w-full bg-black text-white font-semibold py-2 rounded-md hover:bg-gray-800 transition-colors duration-200 disabled:opacity-50"
+    >
+      Verificar OTP
+    </button>
+  </form>
+
+  <!-- Mensajes de éxito o error -->
+  <div *ngIf="message" class="mt-4 p-4 bg-green-100 text-green-700 rounded-md text-center">
+    {{ message }}
+  </div>
+  <div *ngIf="error" class="mt-4 p-4 bg-red-100 text-red-700 rounded-md text-center">
+    {{ error }}
+  </div>
+</div>
