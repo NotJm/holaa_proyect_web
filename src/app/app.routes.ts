@@ -5,13 +5,13 @@ import { ConectateComponent } from './components/public/conectate/conectate.comp
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { VerificationComponent } from './components/public/verification/verification.component';
 import { LoginComponent } from './components/public/login/login.component';
-import { LoginAdminComponent } from './components/admin/login-admin/login-admin.component';
 import { HomeAdminComponent } from './components/admin/home/home-admin.component';
 import { UserAdminComponent } from './components/admin/user-admin/user-admin.component';
 import { PoliticasAdminComponent } from './components/admin/politicas-admin/politicas-admin.component';
 import { IncidenciasAdminComponent } from './components/admin/incidencias-admin/incidencias-admin.component';
 import { OtpGuard } from './guard/otp.guard';
 import { adminGuard } from './guard/admin.guard';
+import { LogoAdminComponent } from './components/admin/logo-admin/logo-admin.component';
 
 
 export const routes: Routes = [
@@ -24,6 +24,7 @@ export const routes: Routes = [
       { path: 'user', component: UserAdminComponent},
       { path: 'politicas', component: PoliticasAdminComponent},
       { path: 'incidencias', component: IncidenciasAdminComponent},
+      { path: 'logo', component: LogoAdminComponent},
     ]
    },
   
