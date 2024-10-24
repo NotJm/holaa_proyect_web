@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Para los formularios
 import { AdminService } from '../../../services/admin.service';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-incidencias-admin',
@@ -14,17 +15,56 @@ export class IncidenciasAdminComponent {
 
   blockedUsers: any[] = [];
 
-  constructor(private incidentService: AdminService) { }
+  constructor(private adminService: AdminService,
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit(): void {
-    this.incidentService.getBlockedUsers(7).subscribe(
-      (data) => {
-        this.blockedUsers = data;
-      },
-      (error) => {
-        console.error('Error al obtener usuarios bloqueados', error);
+    this.loadConfig();
+    this.loadEmailMessage();
+    this.getBlockedUsers(); 
+  }
+
+  getBlockedUsers() {
+    this.adminService.getBlockedUsers(this.filtroDias).subscribe((response) => {
+      this.blockedUsers = response;
+    });
+  }
+
+  // Manejar cambios en la selección de días
+  onDaysChange(event: any) {
+    this.filtroDias = event.target.value;
+    this.getBlockedUsers();
+  }
+
+  loadConfig() {
+    this.adminService.getConfig().subscribe((config) => {
+      if (config) {
+        this.intentosFallidosMaximos = config.maxFailedAttempts;
+        this.tiempoToken = config.blockDuration;
+        // console.log('Configuración cargada:', config);
       }
-    );
+    });
+  }
+
+  guardarIntentosFallidos() {
+    this.adminService.updateFailedAttempts(this.intentosFallidosMaximos).subscribe(response => {
+      this.notificationService.success('Cambios realizado con exito');
+      
+    });
+  }
+
+  loadEmailMessage() {
+    this.adminService.getEmailMessage().subscribe((response) => {
+      this.mensajeEmail = response.message;
+    });
+  }
+
+  // Actualizar el mensaje de correo
+  updateEmailMessage() {
+    this.adminService.updateEmailMessage(this.mensajeEmail).subscribe((response) => {
+      this.notificationService.success('Cambios realizado con exito') 
+    });
   }
 
   intentosFallidosMaximos: number = 5; // Número máximo de intentos fallidos antes de bloquear al usuario

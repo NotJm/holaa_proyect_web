@@ -1,58 +1,64 @@
-<div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Políticas</h1>
-  
-    <!-- Tabla de políticas -->
-    <a href="#" class="text-blue-600 mb-4 block">Agregar</a>
-    <div class="overflow-x-auto">
-      <table class="min-w-full border border-gray-300">
-        <thead>
-          <tr class="bg-gray-200 text-left">
-            <th class="p-4 border">Num</th>
-            <th class="p-4 border">Título</th>
-            <th class="p-4 border">Política</th>
-            <th class="p-4 border">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let politica of politicas" class="bg-white">
-            <td class="p-4 border">{{ politica.num }}</td>
-            <td class="p-4 border">{{ politica.titulo }}</td>
-            <td class="p-4 border">{{ politica.politica }}</td>
-            <td class="p-4 border space-x-2">
-              <!-- Botones de acción -->
-              <a href="#" (click)="verPolitica(politica)" class="text-green-600">Ver</a>
-              <a href="#" (click)="editarPolitica(politica)" class="text-blue-600">Editar</a>
-              <a href="#" class="text-red-600">Eliminar</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <!-- Modal para Ver la Política Completa -->
-    <div *ngIf="selectedPolitica && !isEditing" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div class="bg-white rounded-lg p-6 w-1/2">
-        <div class="flex justify-between">
-          <h2 class="text-xl font-bold">{{ selectedPolitica.titulo }}</h2>
-          <button (click)="cerrarModal()" class="text-red-600 text-2xl">&times;</button>
-        </div>
-        <p class="mt-4">{{ selectedPolitica.completo }}</p>
-      </div>
-    </div>
-  
-    <!-- Modal para Editar la Política -->
-    <div *ngIf="selectedPolitica && isEditing" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div class="bg-white rounded-lg p-6 w-1/3">
-        <h2 class="text-xl font-bold mb-4">Editar política</h2>
+<div class="container mx-auto">
+  <h2 class="text-2xl font-bold mb-4">Políticas</h2>
+
+  <!-- Botón para agregar nueva política -->
+  <button (click)="agregarPolitica()" class="text-blue-600 mb-4">
+    Agregar
+  </button>
+
+  <!-- Formulario para agregar o editar políticas -->
+  <div *ngIf="editMode || selectedPolitica" class="bg-white p-6 rounded shadow-md mb-4">
+    <h3 class="text-lg font-semibold mb-4">{{ isEditing ? 'Editar Política' : 'Agregar Política' }}</h3>
+
+    <form (ngSubmit)="savePolicy()">
+      <div class="mb-4">
         <label class="block mb-2">Título</label>
-        <input [(ngModel)]="selectedPolitica.titulo" type="text" class="w-full p-2 border mb-4">
-  
-        <label class="block mb-2">Política</label>
-        <textarea [(ngModel)]="selectedPolitica.completo" class="w-full p-2 border mb-4" rows="5"></textarea>
-  
-        <button (click)="guardarCambios()" class="bg-blue-600 text-white px-4 py-2 rounded">Guardar</button>
-        <button (click)="cerrarModal()" class="ml-2 text-gray-600">Cancelar</button>
+        <input type="text" [(ngModel)]="policyForm.title" name="title" class="w-full p-3 border rounded-md" required />
       </div>
-    </div>
+
+      <div class="mb-4">
+        <label class="block mb-2">Descripción</label>
+        <textarea [(ngModel)]="policyForm.description" name="description" class="w-full p-3 border rounded-md" required></textarea>
+      </div>
+
+      <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded">
+        {{ isEditing ? 'Guardar Cambios' : 'Agregar' }}
+      </button>
+      <button type="button" class="bg-red-500 text-white py-2 px-4 ml-2 rounded" (click)="cerrarModal()">Cancelar</button>
+    </form>
   </div>
-  
+
+  <!-- Sección para mostrar detalles de la política seleccionada -->
+  <div *ngIf="selectedPolitica && !isEditing" class="bg-white p-6 rounded shadow-md mb-4">
+    <h3 class="text-lg font-semibold mb-4">Detalles de la Política</h3>
+    
+    <p><strong>Título:</strong> {{ selectedPolitica.title }}</p>
+    <p><strong>Descripción:</strong> {{ selectedPolitica.description }}</p>
+    
+    <button class="bg-blue-500 text-white py-2 px-4 rounded" (click)="cerrarModal()">Cerrar</button>
+  </div>
+
+  <!-- Tabla de Políticas -->
+  <table class="w-full border-collapse">
+    <thead>
+      <tr class="bg-gray-200 text-left">
+        <th class="p-4">Num</th>
+        <th class="p-4">Título</th>
+        <th class="p-4">Política</th>
+        <th class="p-4">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let policy of politicas; let i = index">
+        <td class="p-4 border">{{ i + 1 }}</td>
+        <td class="p-4 border">{{ policy.title }}</td>
+        <td class="p-4 border">{{ policy.description | slice: 0:50 }}...</td>
+        <td class="p-4 border">
+          <button class="text-blue-500" (click)="verPolitica(policy)">Ver</button>
+          <button class="text-yellow-500 ml-2" (click)="editarPolitica(policy)">Editar</button>
+          <button class="text-red-500 ml-2" (click)="deletePolicy(policy._id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -12,6 +12,7 @@ import { IncidenciasAdminComponent } from './components/admin/incidencias-admin/
 import { OtpGuard } from './guard/otp.guard';
 import { adminGuard } from './guard/admin.guard';
 import { LogoAdminComponent } from './components/admin/logo-admin/logo-admin.component';
+import { DocumentoRegulatorioComponent } from './components/admin/documento-regulatorio/documento-regulatorio.component';
 
 
 export const routes: Routes = [
@@ -25,6 +26,7 @@ export const routes: Routes = [
       { path: 'politicas', component: PoliticasAdminComponent},
       { path: 'incidencias', component: IncidenciasAdminComponent},
       { path: 'logo', component: LogoAdminComponent},
+      { path: 'documento-regulatorio', component: DocumentoRegulatorioComponent}
     ]
    },
   

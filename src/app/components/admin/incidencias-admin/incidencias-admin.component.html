@@ -8,13 +8,20 @@
       <h2 class="text-xl font-semibold mb-4">Intentos fallidos</h2>
       <label class="block mb-2">Número máximo de intentos fallidos antes de bloquear al usuario:</label>
       <input [(ngModel)]="intentosFallidosMaximos" type="number" class="w-full p-3 border rounded-md" />
+      <button (click)="guardarIntentosFallidos()" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Guardar</button>
     </div>
+    
 
     <!-- Sección para editar el mensaje de los correos -->
     <div class="bg-white p-6 rounded shadow-md">
       <h2 class="text-xl font-semibold mb-4">Editar mensaje de correo</h2>
+    
       <label class="block mb-2">Mensaje que se enviará en los correos:</label>
-      <textarea [(ngModel)]="mensajeEmail" rows="5" class="w-full p-3 border rounded-md"></textarea>
+      <textarea [(ngModel)]="mensajeEmail" class="w-full p-3 border rounded-md"></textarea>
+    
+      <button (click)="updateEmailMessage()" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+        Guardar mensaje
+      </button>
     </div>
 
     <!-- Sección para editar el tiempo de expiración del token -->
@@ -36,7 +43,7 @@
     </div>
   </div>
 
-  <!-- Lista de usuarios bloqueados (ocupa el ancho completo) -->
+  <!-- Lista de usuarios bloqueados (ocupa el ancho completo)
   <div class="bg-white p-6 rounded shadow-md overflow-x-auto">
     <h2 class="text-xl font-semibold mb-4">Lista de usuarios bloqueados</h2>
     <table class="w-full table-auto border border-gray-300 rounded-lg shadow-md my-6">
@@ -55,5 +62,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
 </div>

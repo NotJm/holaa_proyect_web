@@ -1,0 +1,67 @@
+<div class="container mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Documentos Regulatorios</h2>
+  
+    <!-- Botón para agregar nuevo documento regulatorio -->
+    <button (click)="agregarDocumento()" class="text-blue-600 mb-4">
+      Agregar Documento Regulatorio
+    </button>
+  
+    <!-- Formulario para agregar o editar documentos -->
+    <div *ngIf="editMode || selectedDocumento" class="bg-white p-6 rounded shadow-md mb-4">
+      <h3 class="text-lg font-semibold mb-4">{{ isEditing ? 'Editar Documento' : 'Agregar Documento' }}</h3>
+  
+      <form (ngSubmit)="saveDocumento()">
+        <div class="mb-4">
+          <label class="block mb-2">Email</label>
+          <input type="email" [(ngModel)]="documentoForm.email" name="email" class="w-full p-3 border rounded-md" required />
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-2">Título</label>
+          <input type="text" [(ngModel)]="documentoForm.title" name="title" class="w-full p-3 border rounded-md" required />
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-2">Contenido</label>
+          <textarea [(ngModel)]="documentoForm.content" name="content" class="w-full p-3 border rounded-md" required></textarea>
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-2">Fecha de Entrada en Vigor</label>
+          <input type="date" [(ngModel)]="documentoForm.effective_date" name="effective_date" class="w-full p-3 border rounded-md" required />
+        </div>
+  
+        <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded">
+          {{ isEditing ? 'Guardar Cambios' : 'Agregar' }}
+        </button>
+        <button type="button" class="bg-red-500 text-white py-2 px-4 ml-2 rounded" (click)="cerrarModal()">Cancelar</button>
+      </form>
+    </div>
+  
+    <!-- Tabla de Documentos Regulatorios -->
+    <table class="w-full border-collapse">
+      <thead>
+        <tr class="bg-gray-200 text-left">
+          <th class="p-4">Num</th>
+          <th class="p-4">Título</th>
+          <th class="p-4">Contenido</th>
+          <th class="p-4">Versión</th>
+          <th class="p-4">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let documento of documentos; let i = index">
+          <td class="p-4 border">{{ i + 1 }}</td>
+          <td class="p-4 border">{{ documento.title }}</td>
+          <td class="p-4 border">{{ documento.content | slice: 0:50 }}...</td>
+          <td class="p-4 border">{{ documento.version }}</td>
+          <td class="p-4 border">
+            <button class="text-blue-500" (click)="verDocumento(documento)">Ver</button>
+            <button class="text-yellow-500 ml-2" (click)="editarDocumento(documento)">Editar</button>
+            <button class="text-red-500 ml-2" (click)="deleteDocumento(documento._id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
